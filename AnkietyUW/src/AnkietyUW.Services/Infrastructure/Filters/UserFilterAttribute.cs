@@ -30,10 +30,13 @@ namespace AnkietyUW.Services.Infrastructure.Filters
                 context.Result = new BadRequestResult();
                 return;
             }
-            var claims = Jwt.Decode(jsonWebToken[0]);
 
-            //context.HttpContext.Items.Add(claims[""]);
-            
+            var claims = Jwt.Decode(jsonWebToken[0]);
+            foreach (var claim in claims)
+            {
+                context.HttpContext.Items.Add(claim.Key,claim.Value);
+            }
+          
 
         }
     }
