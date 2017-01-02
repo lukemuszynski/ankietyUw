@@ -1,5 +1,7 @@
 ﻿{
   "dependencies": {
+    "AnkietyUW.DataLayer": "1.0.0-*",
+    "AnkietyUW.Utilities": "1.0.0-*",
     "Microsoft.AspNetCore.Mvc": "1.0.1",
     "Microsoft.AspNetCore.Routing": "1.0.1",
     "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
@@ -18,7 +20,9 @@
   },
 
   "frameworks": {
-    "net461": { }
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
   },
 
   "buildOptions": {
