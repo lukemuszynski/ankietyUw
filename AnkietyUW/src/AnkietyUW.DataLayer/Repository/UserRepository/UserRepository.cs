@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AnkietyUW.DataLayer.Repository
+namespace AnkietyUW.DataLayer.Repository.UserRepository
 {
-    public interface ITestRepository
+    public class UserRepository
     {
-
-
-
     }
 }

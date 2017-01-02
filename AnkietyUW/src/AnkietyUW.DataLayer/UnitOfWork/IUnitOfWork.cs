@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AnkietyUW.DataLayer.UnitOfWork
 {
-    interface IUnitOfWork
+    public interface IUnitOfWork
     {
     }
 }
