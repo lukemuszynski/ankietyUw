@@ -14,7 +14,7 @@ namespace AnkietyUW.DataLayer.Entities
         public int SecondQuestionAddSeconds { get; set; }
         public int ThirdQuestionAddSeconds { get; set; }
         public int FourthQuestionAddSeconds { get; set; }
-
+        public int CompletedSeries { get; set; }
         public ICollection<User> Users { get; set; }
         public ICollection<TestTime> TestTimes { get; set; }
 

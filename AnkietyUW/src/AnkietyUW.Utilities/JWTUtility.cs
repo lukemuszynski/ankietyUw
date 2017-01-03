@@ -27,6 +27,7 @@ namespace AnkietyUW.Utilities
 
         public Dictionary<string, string> Decode(string token)
         {
+
             var dictionary = Jose.JWT.Decode<Dictionary<string, string>>(token, _secretKey, JwsAlgorithm.HS256);
 
             return dictionary;
@@ -36,7 +37,7 @@ namespace AnkietyUW.Utilities
         {
             var token = Jose.JWT.Encode(payload, _secretKey, JwsAlgorithm.HS256);
             return token;
-            
+
         }
     }
 }

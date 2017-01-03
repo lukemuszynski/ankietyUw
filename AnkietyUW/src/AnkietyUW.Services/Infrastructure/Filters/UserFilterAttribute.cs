@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AnkietyUW.Utilities;
+using Jose;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -27,16 +28,24 @@ namespace AnkietyUW.Services.Infrastructure.Filters
 
             if (jsonWebToken.Count == 0)
             {
-                context.Result = new BadRequestResult();
+                context.Result = new UnauthorizedResult();
                 return;
             }
-
-            var claims = Jwt.Decode(jsonWebToken[0]);
-            foreach (var claim in claims)
+            try
             {
-                context.HttpContext.Items.Add(claim.Key, claim.Value);
-            }
+                var claims = Jwt.Decode(jsonWebToken[0]);
 
+                foreach (var claim in claims)
+                {
+                    context.HttpContext.Items.Add(claim.Key, claim.Value);
+                }
+            }
+            catch (IntegrityException e)
+            {
+                context.Result = new UnauthorizedResult();
+                return;
+                
+            }
 
         }
     }

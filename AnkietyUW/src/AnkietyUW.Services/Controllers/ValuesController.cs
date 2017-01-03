@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AnkietyUW.DataLayer.UnitOfWork;
 using AnkietyUW.Services.Infrastructure.BaseControllers;
 using AnkietyUW.Utilities;
 using Jose;
@@ -14,7 +15,7 @@ namespace AnkietyUW.Services.Controllers
     {
         private IJwtUtility UtlJwtUtility { get; set; }
         // GET api/values
-        public ValuesController(IJwtUtility utlJwtUtility)
+        public ValuesController(IJwtUtility utlJwtUtility, IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             UtlJwtUtility = utlJwtUtility;
         }
@@ -22,12 +23,8 @@ namespace AnkietyUW.Services.Controllers
         [HttpGet]
         public string Get()
         {
-            var d = new Dictionary<string, string>();
-            d.Add("UserId", "085f2cd0-1bb9-42a5-9389-4b65208de07e");
-            d.Add("SecretId", "c85225c8-e9a9-48f7-94fe-7734c2c538b2");
-            d.Add("TestTimeId", "c85225c8-e9a9-48f7-94fe-7734c2c538b2");
-            return UtlJwtUtility.Encode(d);
-             
+            return UserId.ToString() + " " + SecretId.ToString() + " " + TestTimeId.ToString();
+
         }
 
         // GET api/values/5
