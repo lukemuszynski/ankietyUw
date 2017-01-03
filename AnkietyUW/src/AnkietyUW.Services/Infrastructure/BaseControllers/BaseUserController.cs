@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using AnkietyUW.Services.Infrastructure.Filters;
+using AnkietyUW.Utilities;
 
 namespace AnkietyUW.Services.Infrastructure.BaseControllers
 {
-
+    [UserFilter]
     public class BaseUserController : Controller
     {
         protected Guid SecretId { get; set; }
@@ -15,9 +17,10 @@ namespace AnkietyUW.Services.Infrastructure.BaseControllers
 
         public BaseUserController()
         {
+           
             SecretId = Guid.Parse(Request.HttpContext.Items["SecretId"] as string);
-            SecretId = Guid.Parse(Request.HttpContext.Items["TestTimeId"] as string);
-            SecretId = Guid.Parse(Request.HttpContext.Items["UserId"] as string);
+            TestTimeId = Guid.Parse(Request.HttpContext.Items["TestTimeId"] as string);
+            UserId = Guid.Parse(Request.HttpContext.Items["UserId"] as string);
         }
     }
 }

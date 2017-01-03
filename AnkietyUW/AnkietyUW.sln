@@ -10,9 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AnkietyUW.Services", "src\AnkietyUW.Services\AnkietyUW.Services.xproj", "{3BD6653C-8C2A-4DF0-9928-AD54A508704C}"
-EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AnkietyUW.DataLayer", "src\AnkietyUW.DataLayer\AnkietyUW.DataLayer.xproj", "{2395345C-3B15-4478-A113-6D6892006D38}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AnkietyUW.Utilities", "src\AnkietyUW.Utilities\AnkietyUW.Utilities.xproj", "{017E26EF-DA39-4A89-92F4-22C14CE6C3E0}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AnkietyUW.Contracts", "src\AnkietyUW.Contracts\AnkietyUW.Contracts.xproj", "{265620BD-C665-41C7-A6BD-603467A532EE}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AnkietyUW.Services", "src\AnkietyUW.Services\AnkietyUW.Services.xproj", "{FA81B007-091E-4E72-AEAF-05E0A5435092}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,20 +24,30 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3BD6653C-8C2A-4DF0-9928-AD54A508704C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3BD6653C-8C2A-4DF0-9928-AD54A508704C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3BD6653C-8C2A-4DF0-9928-AD54A508704C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3BD6653C-8C2A-4DF0-9928-AD54A508704C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2395345C-3B15-4478-A113-6D6892006D38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2395345C-3B15-4478-A113-6D6892006D38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2395345C-3B15-4478-A113-6D6892006D38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2395345C-3B15-4478-A113-6D6892006D38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{017E26EF-DA39-4A89-92F4-22C14CE6C3E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{017E26EF-DA39-4A89-92F4-22C14CE6C3E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{017E26EF-DA39-4A89-92F4-22C14CE6C3E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{017E26EF-DA39-4A89-92F4-22C14CE6C3E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{265620BD-C665-41C7-A6BD-603467A532EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{265620BD-C665-41C7-A6BD-603467A532EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{265620BD-C665-41C7-A6BD-603467A532EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{265620BD-C665-41C7-A6BD-603467A532EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA81B007-091E-4E72-AEAF-05E0A5435092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA81B007-091E-4E72-AEAF-05E0A5435092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA81B007-091E-4E72-AEAF-05E0A5435092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA81B007-091E-4E72-AEAF-05E0A5435092}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{3BD6653C-8C2A-4DF0-9928-AD54A508704C} = {7655984A-137D-43C1-9D0D-BE90F3788BEC}
 		{2395345C-3B15-4478-A113-6D6892006D38} = {7655984A-137D-43C1-9D0D-BE90F3788BEC}
+		{017E26EF-DA39-4A89-92F4-22C14CE6C3E0} = {7655984A-137D-43C1-9D0D-BE90F3788BEC}
+		{265620BD-C665-41C7-A6BD-603467A532EE} = {7655984A-137D-43C1-9D0D-BE90F3788BEC}
+		{FA81B007-091E-4E72-AEAF-05E0A5435092} = {7655984A-137D-43C1-9D0D-BE90F3788BEC}
 	EndGlobalSection
 EndGlobal

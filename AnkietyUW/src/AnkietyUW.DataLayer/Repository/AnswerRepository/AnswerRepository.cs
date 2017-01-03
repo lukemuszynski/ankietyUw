@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AnkietyUW.DataLayer.DbContext;
 using AnkietyUW.DataLayer.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnkietyUW.DataLayer.Repository.AnswerRepository
 {
-    public class AnswerRepository : IAnswerRepository
+    public class AnswerRepository : Repository.Repository, IAnswerRepository
     {
+        public AnswerRepository(ApplicationDbContext context) : base(context)
+        {
+        }
+
         public Task<ICollection<Answer>> GetAnswersForUser(Guid userId)
         {
             throw new NotImplementedException();

@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AnkietyUW.DataLayer.DbContext;
+using AnkietyUW.DataLayer.Repository;
+using AnkietyUW.DataLayer.Repository.AnswerRepository;
+using AnkietyUW.DataLayer.Repository.SecretRepository;
+using AnkietyUW.DataLayer.Repository.TestRepository;
+using AnkietyUW.DataLayer.Repository.UserRepository;
 using AnkietyUW.DataLayer.UnitOfWork;
 using AnkietyUW.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -30,10 +37,16 @@ namespace AnkietyUW.Services
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
-            services.AddScoped<IJwtUtility, JwtUtility>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            var connection = @"Server=(localdb)\ProjectsV12;Initial Catalog=AnkietyUw;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
+            services.AddScoped<IJwtUtility, JwtUtility>();
+            services.AddScoped<ISecretRepository, SecretRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAnswerRepository, AnswerRepository>();
+            services.AddScoped<ITestRepository, TestRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

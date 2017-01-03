@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace AnkietyUW.DataLayer.Entities
 {
@@ -42,7 +44,7 @@ namespace AnkietyUW.DataLayer.Entities
             }
 
             set
-            {
+            { 
                 var splitted = value.Split(';');
                 foreach (var s in splitted)
                 {
