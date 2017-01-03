@@ -27,7 +27,9 @@ namespace AnkietyUW.Services
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddUserSecrets()
                 .AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
@@ -37,7 +39,8 @@ namespace AnkietyUW.Services
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            var connection = @"Server=(localdb)\ProjectsV12;Initial Catalog=AnkietyUw;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+            var connection = Configuration["connectionString"];
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
             services.AddScoped<IJwtUtility, JwtUtility>();
