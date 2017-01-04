@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AnkietyUW.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AnkietyUW.Services.Controllers
+namespace AnkietyUW.Services.Controllers.TestControllers
 {   
     [Route("Token")]
     public class TokenGenController : Controller

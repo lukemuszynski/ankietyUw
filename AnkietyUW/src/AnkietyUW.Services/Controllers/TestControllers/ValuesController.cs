@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AnkietyUW.DataLayer.UnitOfWork;
+﻿using AnkietyUW.DataLayer.UnitOfWork;
 using AnkietyUW.Services.Infrastructure.BaseControllers;
 using AnkietyUW.Utilities;
-using Jose;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AnkietyUW.Services.Controllers
+namespace AnkietyUW.Services.Controllers.TestControllers
 {
     [Route("api/[controller]")]
     public class ValuesController : BaseUserController
