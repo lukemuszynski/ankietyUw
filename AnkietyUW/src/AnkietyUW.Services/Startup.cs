@@ -10,12 +10,14 @@ using AnkietyUW.DataLayer.Repository.TestRepository;
 using AnkietyUW.DataLayer.Repository.UserRepository;
 using AnkietyUW.DataLayer.UnitOfWork;
 using AnkietyUW.Utilities;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace AnkietyUW.Services
 {
@@ -42,14 +44,17 @@ namespace AnkietyUW.Services
 
             var connection = Configuration["connectionString"];
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
-
+            services.AddAutoMapper();
             services.AddScoped<IJwtUtility, JwtUtility>();
+            services.AddScoped<IQuestionsProvider, QuestionsProvider>();
             services.AddScoped<ISecretRepository, SecretRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<ITestRepository, TestRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
