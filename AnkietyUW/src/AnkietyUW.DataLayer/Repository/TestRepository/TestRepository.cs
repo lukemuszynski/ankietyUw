@@ -17,7 +17,8 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
 
         public async Task<Test> AddTest(Test test)
         {
-            await Context.Tests.AddAsync(test);
+            test.Id = Guid.NewGuid();
+            Context.Tests.Add(test);
             return test;
         }
 

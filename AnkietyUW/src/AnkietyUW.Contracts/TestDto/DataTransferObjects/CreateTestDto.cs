@@ -1,27 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal;
 
-namespace AnkietyUW.DataLayer.Entities
+namespace AnkietyUW.Contracts.TestDto.DataTransferObjects
 {
-    public class Test
+    public class CreateTestDto
     {
-        public Guid Id { get; set; }
+        [Required]
         public int FirstQuestionAddSeconds { get; set; }
+        [Required]
         public int SecondQuestionAddSeconds { get; set; }
+        [Required]
         public int ThirdQuestionAddSeconds { get; set; }
+        [Required]
         public int FourthQuestionAddSeconds { get; set; }
+        [Required]
         public int CompletedSeriesCounter { get; set; }
-
-        public ICollection<User> Users { get; set; }
-        public ICollection<TestTime> TestTimes { get; set; }
-
+        [Required]
         public int TimeToFillTestAddSeconds { get; set; }
-          
-    }
 
-    
+    }
 }

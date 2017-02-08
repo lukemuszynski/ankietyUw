@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Answer] (
+﻿CREATE TABLE [dbo].[Answers] (
     [Id] CHAR (36) NOT NULL PRIMARY KEY,
     [DateTime] DATE NOT NULL, 
     [TestId] CHAR(36) NOT NULL, 
@@ -6,9 +6,9 @@
     [UserId] CHAR(36) NULL, 
 );
 
-CREATE TABLE [dbo].[Test]
+CREATE TABLE [dbo].[Tests]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL PRIMARY KEY Identity(1,1),
     [FirstQuestionAddSeconds] INT NOT NULL, 
     [SecondQuestionAddSeconds] INT NOT NULL, 
     [ThirdQuestionAddSeconds] INT NOT NULL, 
@@ -17,21 +17,21 @@ CREATE TABLE [dbo].[Test]
     [TimeToFillTestAddSeconds] INT NOT NULL
 );
 
-CREATE TABLE [dbo].[Secret]
+CREATE TABLE [dbo].[Secrets]
 (
 	[Id] CHAR(36) NOT NULL PRIMARY KEY, 
     [UserId] CHAR(36) NOT NULL, 
     [SeriesNumber] INT NOT NULL
 );
 
-CREATE TABLE [dbo].[TestTime]
+CREATE TABLE [dbo].[TestTimes]
 (
 	[Id] CHAR(36) NOT NULL PRIMARY KEY, 
     [DateTime] DATE NOT NULL, 
     [TestId] CHAR(36) NOT NULL
 );
 
-CREATE TABLE [dbo].[User]
+CREATE TABLE [dbo].[Users]
 (
 	[Id] CHAR(36) NOT NULL PRIMARY KEY, 
     [Key] CHAR(256) NOT NULL, 

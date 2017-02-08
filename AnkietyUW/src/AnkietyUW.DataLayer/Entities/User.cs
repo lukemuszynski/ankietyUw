@@ -21,7 +21,7 @@ namespace AnkietyUW.DataLayer.Entities
         public Sex Sex { get; set; }
 
         [ForeignKey("Test")]
-        public int TestId { get; set; }
+        public Guid TestId { get; set; }
         public Test Test { get; set; }
     }
 
