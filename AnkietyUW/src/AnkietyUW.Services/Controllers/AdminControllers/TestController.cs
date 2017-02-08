@@ -16,6 +16,8 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         //wyswietlanei wszystkich testow
         public TestController(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
+            UnitOfWork.TestRepository.AddTest(new Test());
+            UnitOfWork.SaveChangesAsync();
         }
 
     }

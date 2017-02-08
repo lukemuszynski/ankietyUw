@@ -41,7 +41,6 @@ namespace AnkietyUW.Services
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-
             var connection = Configuration["connectionString"];
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
             services.AddAutoMapper();

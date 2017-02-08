@@ -14,9 +14,11 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
         {
         }
 
-        public Task<Test> AddTest(Test test)
+
+        public async Task<Test> AddTest(Test test)
         {
-            throw new NotImplementedException();
+            await Context.Tests.AddAsync(test);
+            return test;
         }
 
         public Task<Test> EditTest(Test test)
