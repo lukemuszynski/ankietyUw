@@ -27,9 +27,11 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
             throw new NotImplementedException();
         }
 
-        public Task<Test> GetTest(Guid id)
+        public async Task<Test> GetTest(Guid id)
         {
-            throw new NotImplementedException();
+
+            var test = await Context.Tests.Include(t => t.Users).Include(t => t.TestTimes).FirstOrDefaultAsync(t => t.Id == id);
+            return test;
         }
 
         public Task<ICollection<Test>> GetAllTests()
