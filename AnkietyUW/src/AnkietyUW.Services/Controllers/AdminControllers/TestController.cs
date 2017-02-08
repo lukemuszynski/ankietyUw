@@ -31,7 +31,7 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
             try
             {
                 Test test = Mapper.Map<CreateTestDto, Test>(createTestDto);
-
+                
                 await UnitOfWork.TestRepository.AddTest(test);
 
                 await UnitOfWork.SaveChangesAsync();
