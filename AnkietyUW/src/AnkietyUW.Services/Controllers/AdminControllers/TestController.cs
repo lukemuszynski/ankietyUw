@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AnkietyUW.Services.Controllers.AdminControllers
 {
+
+    [Route("Tests")]
     public class TestController : BaseAdminController
     {
 
@@ -22,8 +24,7 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         {
         }
 
-        [HttpPost]
-        [Route("CreateNewTest")]
+        [HttpPost("Create")]
         public async Task<IActionResult> CreateNewTest([FromBody]CreateTestDto createTestDto)
         {
             if (!ModelState.IsValid)
@@ -47,12 +48,20 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
                 return new JsonResult(e.ToString());
 
             }
-
-           
-            throw new NotImplementedException();
-           // return new AllTestsViewModel();
         }
 
+        [HttpGet("Show")]
+        public async Task<IActionResult> ShowTests()
+        {
+            var tests = await UnitOfWork.TestRepository.GetAllTests();
+            return Ok(tests);
+        }
 
+        [HttpGet("Show/{id}")]
+        public async Task<IActionResult> ShowTests(string id)
+        {
+            var test = await UnitOfWork.TestRepository.GetTest(new Guid(id));
+            return Ok(test);
+        }
     }
 }

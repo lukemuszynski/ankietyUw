@@ -8,7 +8,7 @@
 
 CREATE TABLE [dbo].[Tests]
 (
-	[Id] INT NOT NULL PRIMARY KEY Identity(1,1),
+	[Id] CHAR(36) NOT NULL PRIMARY KEY Identity(1,1),
     [FirstQuestionAddSeconds] INT NOT NULL, 
     [SecondQuestionAddSeconds] INT NOT NULL, 
     [ThirdQuestionAddSeconds] INT NOT NULL, 

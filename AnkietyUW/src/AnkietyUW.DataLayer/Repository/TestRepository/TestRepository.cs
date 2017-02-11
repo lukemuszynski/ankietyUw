@@ -29,7 +29,6 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
 
         public async Task<Test> GetTest(Guid id)
         {
-
             var test = await Context.Tests.Include(t => t.Users).Include(t => t.TestTimes).FirstOrDefaultAsync(t => t.Id == id);
             return test;
         }
