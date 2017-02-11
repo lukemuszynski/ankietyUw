@@ -22,6 +22,7 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         public TestController(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
+
         [HttpPost]
         [Route("CreateNewTest")]
         public async Task<IActionResult> CreateNewTest([FromBody]CreateTestDto createTestDto)
