@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AnkietyUW.Services.Controllers.AdminControllers
 {
+    [Route("Tests")]
     public class TestController : BaseAdminController
     {
 
@@ -50,6 +51,25 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
            
             throw new NotImplementedException();
            // return new AllTestsViewModel();
+        }
+
+        [HttpGet("Show/{id}")]
+        public async Task<IActionResult> ShowTests(string id)
+        {
+            try
+            {
+                var test = await UnitOfWork.TestRepository.GetTest(id);
+                return Ok(test);
+            }
+            catch (Exception e)
+            {
+                //Console.WriteLine(e);
+                //var br =  new BadRequestResult();
+                
+                return Ok(e);
+            }
+            
+           
         }
 
 

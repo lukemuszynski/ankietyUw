@@ -8,7 +8,7 @@ namespace AnkietyUW.Contracts.TestDto.ViewModels
     public class AllTestsViewModel
     {
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public int FirstQuestionAddSeconds { get; set; }
         public int SecondQuestionAddSeconds { get; set; }
         public int ThirdQuestionAddSeconds { get; set; }
