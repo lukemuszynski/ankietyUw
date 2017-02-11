@@ -16,6 +16,9 @@ namespace AnkietyUW.Services.Infrastructure.Mapping
         public MappingProfile()
         {
             CreateMap<Przyklad, PrzykladViewModel>().ReverseMap();
+               // .ForMember(dst => dst.Guid, opt => opt.MapFrom(src => new Guid(src.Guid)));
+
+
             CreateMap<Przyklad, CreatePrzykladDto>().ReverseMap();
             CreateMap<Test, CreateTestDto>().ReverseMap();
             // CreateMap<CreateTestDto,Test>().ForMember(dst => dst.Id, opt=>opt.MapFrom(src => src.ThirdQuestionAddSeconds + 1000));

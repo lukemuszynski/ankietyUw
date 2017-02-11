@@ -8,11 +8,11 @@ namespace AnkietyUW.DataLayer.Entities
 {
     public class TestTime
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public DateTime DateTime { get; set; }
 
         [ForeignKey("Test")]
-        public Guid TestId { get; set; }
+        public string TestId { get; set; }
         public Test Test { get; set; }
     }
 }

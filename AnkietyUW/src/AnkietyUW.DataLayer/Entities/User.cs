@@ -12,7 +12,7 @@ namespace AnkietyUW.DataLayer.Entities
     public class User
     {
         [Key]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string Key { get; set; }
         public string EmailAddress { get; set; }
@@ -21,7 +21,7 @@ namespace AnkietyUW.DataLayer.Entities
         public Sex Sex { get; set; }
 
         [ForeignKey("Test")]
-        public Guid TestId { get; set; }
+        public string TestId { get; set; }
         public Test Test { get; set; }
     }
 

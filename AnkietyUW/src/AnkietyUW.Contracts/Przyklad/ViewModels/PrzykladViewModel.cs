@@ -8,7 +8,7 @@ namespace AnkietyUW.Contracts.Przyklad.ViewModels
     public class PrzykladViewModel
     {
 
-        public Guid Guid { get; set; }
+        public string Guid { get; set; }
         public string Nazwa { get; set; }
         public int LiczbaPrzykladow { get; set; }
         public DateTime DateTimeZrobieniaPrzykladu { get; set; }
