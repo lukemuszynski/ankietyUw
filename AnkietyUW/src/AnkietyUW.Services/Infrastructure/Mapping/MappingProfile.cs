@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AnkietyUW.Contracts.Przyklad.DataTransferObjects;
 using AnkietyUW.Contracts.Przyklad.ViewModels;
 using AnkietyUW.Contracts.TestDto.DataTransferObjects;
 using AnkietyUW.Contracts.TestDto.ViewModels;
+using AnkietyUW.Contracts.UserDto;
 using AnkietyUW.DataLayer.Entities;
 using AutoMapper;
 
@@ -13,15 +15,34 @@ namespace AnkietyUW.Services.Infrastructure.Mapping
 {
     public class MappingProfile : Profile
     {
+
         public MappingProfile()
         {
-            CreateMap<Przyklad, PrzykladViewModel>().ReverseMap();
-               // .ForMember(dst => dst.Guid, opt => opt.MapFrom(src => new Guid(src.Guid)));
 
+            Func<List<int>, List<int?>> func = ( x =>
+            {
+                var l = new List<int?>();
+                x.ForEach(e =>
+                {      
+                    if (e < 0)
+                    {
+                        l.Add(null);
+                    }
+                    else
+                    {
+                        l.Add(e);
+                    }
+                });
+                return l;
+
+            });
+
+            CreateMap<Przyklad, PrzykladViewModel>().ReverseMap();
+
+            CreateMap<AnswerDto, Answer>().ForMember(dst => dst.Answers, opt => opt.MapFrom(src =>  func(src.Answers) ));
 
             CreateMap<Przyklad, CreatePrzykladDto>().ReverseMap();
             CreateMap<Test, CreateTestDto>().ReverseMap();
-            // CreateMap<CreateTestDto,Test>().ForMember(dst => dst.Id, opt=>opt.MapFrom(src => src.ThirdQuestionAddSeconds + 1000));
             CreateMap<Test, AllTestsViewModel>().ReverseMap();
         }
      

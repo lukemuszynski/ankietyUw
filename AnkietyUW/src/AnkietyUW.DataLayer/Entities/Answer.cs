@@ -25,7 +25,7 @@ namespace AnkietyUW.DataLayer.Entities
         public User User { get; set; }
 
         [NotMapped]
-        private List<int?> Answers { get; set; }
+        public List<int?> Answers { get; set; }
 
         public string AnswersCSV
         {
