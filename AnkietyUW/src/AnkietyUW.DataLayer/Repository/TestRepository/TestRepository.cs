@@ -17,7 +17,7 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
 
         public async Task<Test> AddTest(Test test)
         {
-            test.Id = Guid.NewGuid().ToString();
+            test.Id = Guid.NewGuid();
             Context.Tests.Add(test);
             return test;
         }
@@ -27,18 +27,12 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
             throw new NotImplementedException();
         }
 
-        //public async Task<Test> GetTest(Guid id)
-        //{
-        //    var test = await Context.Tests.Include(t => t.Users).Include(t => t.TestTimes).FirstOrDefaultAsync(t => t.Id == id);
-        //    return test;
-        //}
-
         public Task<ICollection<Test>> GetAllTests()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Test> GetTest(string id)
+        public async Task<Test> GetTest(Guid id)
         {
             var test = await Context.Tests.Include(t => t.Users).Include(t => t.TestTimes).FirstOrDefaultAsync(t => t.Id == id);
             return test;

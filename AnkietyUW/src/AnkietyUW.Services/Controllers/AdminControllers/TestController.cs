@@ -23,8 +23,7 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         {
         }
 
-        [HttpPost]
-        [Route("CreateNewTest")]
+        [HttpPost("Create")]
         public async Task<IActionResult> CreateNewTest([FromBody]CreateTestDto createTestDto)
         {
             if (!ModelState.IsValid)
@@ -48,10 +47,6 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
                 return new JsonResult(e.ToString());
 
             }
-
-           
-            throw new NotImplementedException();
-           // return new AllTestsViewModel();
         }
 
         [HttpGet("Show/{id}")]
@@ -59,15 +54,12 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         {
             try
             {
-                var test = await UnitOfWork.TestRepository.GetTest(id);
+                var test = await UnitOfWork.TestRepository.GetTest(new Guid(id));
                 return Ok(test);
             }
             catch (Exception e)
             {
-                //Console.WriteLine(e);
-                //var br =  new BadRequestResult();
-                
-                return Ok(e);
+                return Content(e.ToString());
             }
             
            

@@ -10,7 +10,7 @@ namespace AnkietyUW.DataLayer.Repository
     {
         Task<Test> AddTest(Test test);
         Task<Test> EditTest(Test test);
-        Task<Test> GetTest(string id);
+        Task<Test> GetTest(Guid id);
         Task<ICollection<Test>> GetAllTests();
     }
 }

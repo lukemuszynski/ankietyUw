@@ -8,9 +8,9 @@ namespace AnkietyUW.DataLayer.Entities
 {
     public class Secret
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         [ForeignKey("User")]
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
         public User User { get; set; }
         public int SeriesNumber { get; set; }
     }
