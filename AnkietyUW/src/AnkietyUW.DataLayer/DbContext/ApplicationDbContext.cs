@@ -12,8 +12,7 @@ namespace AnkietyUW.DataLayer.DbContext
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) 
         { }
-
-     
+        
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Test> Tests { get; set; }
         public DbSet<User> Users { get; set; }

@@ -9,6 +9,7 @@ using AnkietyUW.DataLayer.UnitOfWork;
 using AnkietyUW.Services.Infrastructure.BaseControllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnkietyUW.Services.Controllers.AdminControllers
 {
@@ -46,6 +47,20 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
             {
                 return new JsonResult(e.ToString());
 
+            }
+        }
+
+        [HttpGet("Show")]
+        public async Task<IActionResult> ShowTests()
+        {
+            try
+            {
+                var tests = await UnitOfWork.Context.Tests.ToListAsync();
+                return Json(tests);
+            }
+            catch (Exception e)
+            {
+                return Content(e.ToString());
             }
         }
 
