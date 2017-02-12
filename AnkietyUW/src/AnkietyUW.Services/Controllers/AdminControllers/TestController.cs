@@ -25,7 +25,7 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> CreateNewTest([FromBody]CreateTestDto createTestDto)
+        public async Task<IActionResult> CreateNewTestAsync([FromBody]CreateTestDto createTestDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -46,12 +46,16 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
             catch (Exception e)
             {
                 return new JsonResult(e.ToString());
-
             }
         }
 
+        public async Task<IActionResult> Index()
+        {
+            return await ShowTestsAsync();
+        }
+        
         [HttpGet("Show")]
-        public async Task<IActionResult> ShowTests()
+        public async Task<IActionResult> ShowTestsAsync()
         {
             try
             {
@@ -65,7 +69,7 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         }
 
         [HttpGet("Show/{id}")]
-        public async Task<IActionResult> ShowTests(string id)
+        public async Task<IActionResult> ShowTestAsync(string id)
         {
             try
             {
