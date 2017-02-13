@@ -6,9 +6,11 @@ using AnkietyUW.DataLayer.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 using AnkietyUW.Services.Infrastructure.Filters;
 using AnkietyUW.Utilities;
+using Microsoft.AspNetCore.Cors;
 
 namespace AnkietyUW.Services.Infrastructure.BaseControllers
 {
+  
     [UserFilter]
     [PassToControllerFilter]
     public class BaseUserController : Controller

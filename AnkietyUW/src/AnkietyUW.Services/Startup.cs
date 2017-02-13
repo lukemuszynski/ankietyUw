@@ -51,7 +51,9 @@ namespace AnkietyUW.Services
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<ITestRepository, TestRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddMvc().AddJsonOptions(options => {
+            services.AddCors();
+            services.AddMvc().AddJsonOptions(options =>
+            {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
         }
@@ -61,7 +63,7 @@ namespace AnkietyUW.Services
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
             app.UseStatusCodePages();
             app.UseMvc();
         }

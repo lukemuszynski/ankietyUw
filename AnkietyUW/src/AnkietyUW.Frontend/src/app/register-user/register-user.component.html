@@ -1,0 +1,46 @@
+<md-card>
+    <md-card-header>
+        <md-card-title>
+            <h2>Proszę podać:</h2>
+        </md-card-title>
+    </md-card-header>
+
+    <form class="example-form">
+        <md-card-content>
+            <md-input-container class="example-full-width">
+                <input required="true" md-input #postalCode maxlength="1" placeholder="4 cyfrę Pana/Pani numeru PESEL" value="key[0]">
+                <md-hint align="end">{{postalCode.value.length}} / 1</md-hint>
+            </md-input-container>
+
+            <md-input-container class="example-full-width">
+                <input required="true" md-input #postalCode maxlength="1" placeholder="1 literę DRUKOWANĄ imienia Pana/Pani ojca" value="key[1]">
+                <md-hint align="end">{{postalCode.value.length}} / 1</md-hint>
+            </md-input-container>
+
+            <md-input-container class="example-full-width">
+                <input required="true" md-input #postalCode maxlength="1" placeholder="3 literę DRUKOWANĄ imienia Pana/Pani matki" value="key[2]">
+                <md-hint align="end">{{postalCode.value.length}} / 1</md-hint>
+            </md-input-container>
+
+            <md-input-container class="example-full-width">
+                <input required="true" md-input #postalCode maxlength="1" placeholder="4 literę DRUKOWANĄ ulicy, na której Pan/Pani się wychował/a" value="key[3]">
+                <md-hint align="end">{{postalCode.value.length}} / 1</md-hint>
+            </md-input-container>
+
+            <md-input-container class="example-full-width">
+                <input required="true" md-input #postalCode maxlength="1" placeholder="5 cyfrę numeru Pana/Pani telefonu komórkowego" value="key[4]">
+                <md-hint align="end">{{postalCode.value.length}} / 1</md-hint>
+            </md-input-container>
+        </md-card-content>
+        <md-card-actions>
+
+            <button md-raised-button color="primary" type="submit">Wyślij</button>
+        </md-card-actions>
+
+
+    </form>
+
+
+
+
+</md-card>
