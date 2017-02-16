@@ -9,7 +9,7 @@ namespace AnkietyUW.Contracts.TestDto.DataTransferObjects
     public class UpdateTestDto
     {
         [Required]
-        public Guid Id { get; set;  }
+        public string Id { get; set;  }
         [Required]
         public int FirstQuestionAddSeconds { get; set; }
         [Required]

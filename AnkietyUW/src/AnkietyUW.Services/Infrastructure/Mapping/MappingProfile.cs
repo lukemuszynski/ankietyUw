@@ -20,13 +20,11 @@ namespace AnkietyUW.Services.Infrastructure.Mapping
 
             CreateMap<Przyklad, CreatePrzykladDto>().ReverseMap();
 
-
             CreateMap<Test, CreateTestDto>().ReverseMap();
             // CreateMap<CreateTestDto,Test>().ForMember(dst => dst.Id, opt=>opt.MapFrom(src => src.ThirdQuestionAddSeconds + 1000));
             CreateMap<Test, AllTestsViewModel>().ReverseMap();
             
-            //todo: below
-            //CreateMap<Test, UpdateTestDto>().ForMember(dst => dst.Id, opt => opt.MapFrom(src => Guid.Parse(src.Id)));
+            CreateMap<UpdateTestDto,Test>().ForMember(dst => dst.Id, opt => opt.MapFrom(src => Guid.Parse(src.Id)));
         }
     }
 }
