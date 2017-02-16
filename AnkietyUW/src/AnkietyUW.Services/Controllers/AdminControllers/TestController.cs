@@ -99,7 +99,7 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
                 await UnitOfWork.SaveChangesAsync();
 
                 
-                //var testViewModel = Mapper.Map<Test, AllTestsViewModel>(test);
+                var testViewModel = Mapper.Map<Test, AllTestsViewModel>(test);
                 //MapFrom goes here..
                 throw new NotImplementedException();
 
