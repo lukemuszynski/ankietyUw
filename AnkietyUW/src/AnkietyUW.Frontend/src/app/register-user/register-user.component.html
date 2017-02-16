@@ -1,0 +1,46 @@
+<md-card>
+    <md-card-header>
+        <md-card-title>
+            <h2>Proszę podać:</h2>
+        </md-card-title>
+    </md-card-header>
+
+    <form class="example-form" #registerForm>
+        <md-card-content>
+            <md-input-container class="example-full-width">
+                <input required="true" md-input #key0 maxlength="1" placeholder="4 cyfrę Pana/Pani numeru PESEL" value="">
+                <md-hint align="end">{{key0.value.length}} / 1</md-hint>
+            </md-input-container>
+
+            <md-input-container class="example-full-width">
+                <input required="true" md-input #key1 maxlength="1" placeholder="1 literę DRUKOWANĄ imienia Pana/Pani ojca" value="">
+                <md-hint align="end">{{key1.value.length}} / 1</md-hint>
+            </md-input-container>
+
+            <md-input-container class="example-full-width">
+                <input required="true" md-input #key2 maxlength="1" placeholder="3 literę DRUKOWANĄ imienia Pana/Pani matki" value="">
+                <md-hint align="end">{{key2.value.length}} / 1</md-hint>
+            </md-input-container>
+
+            <md-input-container class="example-full-width">
+                <input required="true" md-input #key3 maxlength="1" placeholder="4 literę DRUKOWANĄ ulicy, na której Pan/Pani się wychował/a" value="">
+                <md-hint align="end">{{key3.value.length}} / 1</md-hint>
+            </md-input-container>
+
+            <md-input-container class="example-full-width">
+                <input required="true" md-input #key4 maxlength="1" placeholder="5 cyfrę numeru Pana/Pani telefonu komórkowego" value="">
+                <md-hint align="end">{{key4.value.length}} / 1</md-hint>
+            </md-input-container>
+        </md-card-content>
+
+        <md-card-actions>
+            <button md-raised-button (click)="registerUser(key0.value,key1.value,key2.value,key3.value,key4.value);" type="submit">Wyślij</button>
+        </md-card-actions>
+
+
+    </form>
+
+
+
+
+</md-card>

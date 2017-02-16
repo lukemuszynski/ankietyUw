@@ -1,0 +1,49 @@
+<md-card>
+    <md-card-header>
+        <md-card-title>
+            <h2>Czy ten przymiotnik opisuje Twój obecny nastrój:</h2>
+        </md-card-title>
+    </md-card-header>
+    <md-card-content>
+        <div *ngFor="let numerEmocji of seriesNumber[0]; let ind=index">
+            <h3>{{Emocje[numerEmocji]}}</h3>
+
+            <md-radio-group class="example-radio-group-column" [(ngModel)]="chosenAnswer[ind]">
+                <md-radio-button class="example-radio-button" *ngFor="let ans of answersWithLablesEmocje" [value]="ans.val">
+                    {{ans.label}}
+                </md-radio-button>
+            </md-radio-group>
+        </div>
+    </md-card-content>
+</md-card>
+
+<md-card>
+    <md-card-header>
+        <md-card-title>
+            <h2>Czy od ostatniego pomiaru:</h2>
+        </md-card-title>
+    </md-card-header>
+    <md-card-content>
+        <div *ngFor="let numerOcb of seriesNumber[1]; let ind=index">
+            <h3>{{Ocb[numerOcb]}}</h3>
+            <md-radio-group class="example-radio-group" [(ngModel)]="chosenAnswer[ind+9]">
+                <md-radio-button class="example-radio-button" *ngFor="let ans of answersWithLabelsRest" [value]="ans.val">
+                    {{ans.label}}
+                </md-radio-button>
+            </md-radio-group>
+        </div>
+
+        <div *ngFor="let numerCwb of seriesNumber[2]; let ind=index">
+            <h3>{{Cwb[numerCwb]}}</h3>
+            <md-radio-group class="example-radio-group" [(ngModel)]="chosenAnswer[ind+12]">
+                <md-radio-button class="example-radio-button" *ngFor="let ans of answersWithLabelsRest" [value]="ans.val">
+                    {{ans.label}}
+                </md-radio-button>
+            </md-radio-group>
+        </div>
+    </md-card-content>
+    <md-card-actions>
+        <button md-raised-button color="primary" (click)="submitAnswers()" type="submit">Wyślij</button>
+    </md-card-actions>
+
+</md-card>

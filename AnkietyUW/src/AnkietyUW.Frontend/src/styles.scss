@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+
+//@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+@import '~@angular/material/core/theming/all-theme';
+// Include non-theme styles for core.
+@include md-core();
+// Define a theme.
+$primary: md-palette($md-indigo);
+$accent: md-palette($md-deep-orange, A200, A100, A400);
+$theme: md-light-theme($primary, $accent);
+// Include all theme styles for the components.
+@include angular-material-theme($theme);
+body {
+    font-family: "Roboto", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    margin: 0;
+}
