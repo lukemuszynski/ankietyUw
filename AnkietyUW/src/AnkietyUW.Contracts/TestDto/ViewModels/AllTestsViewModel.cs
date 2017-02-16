@@ -13,6 +13,5 @@ namespace AnkietyUW.Contracts.TestDto.ViewModels
         public int ThirdQuestionAddSeconds { get; set; }
         public int FourthQuestionAddSeconds { get; set; }
         public int CompletedSeriesCounter { get; set; }
-
     }
 }

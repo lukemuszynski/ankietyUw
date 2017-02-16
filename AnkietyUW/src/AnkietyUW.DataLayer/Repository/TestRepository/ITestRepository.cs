@@ -9,8 +9,8 @@ namespace AnkietyUW.DataLayer.Repository
     public interface ITestRepository
     {
         Task<Test> AddTest(Test test);
-        Task<Test> EditTest(Test test);
-        Task<Test> GetTest(Guid id);
+        Task<Test> UpdateTest(Test test);
+        Task<Test> GetSingleTest(Guid id);
         Task<ICollection<Test>> GetAllTests();
     }
 }

@@ -22,17 +22,18 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
             return test;
         }
 
-        public Task<Test> EditTest(Test test)
+        public async Task<Test> UpdateTest(Test test)
         {
-            throw new NotImplementedException();
+            Context.Tests.Update(test);
+            return test;
         }
 
-        public Task<ICollection<Test>> GetAllTests()
+        public async Task<ICollection<Test>> GetAllTests()
         {
-            throw new NotImplementedException();
+            return Context.Tests.ToList();
         }
 
-        public async Task<Test> GetTest(Guid id)
+        public async Task<Test> GetSingleTest(Guid id)
         {
             var test = await Context.Tests.Include(t => t.Users).Include(t => t.TestTimes).FirstOrDefaultAsync(t => t.Id == id);
             return test;

@@ -25,27 +25,26 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> CreateNewTestAsync([FromBody]CreateTestDto createTestDto)
+        public async Task<IActionResult> CreateNewTestAsync([FromBody]CreateTestDto testDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
-     
+
             try
             {
-                Test test = Mapper.Map<CreateTestDto, Test>(createTestDto);
-                
+                Test test = Mapper.Map<CreateTestDto, Test>(testDto);
+
                 await UnitOfWork.TestRepository.AddTest(test);
 
                 await UnitOfWork.SaveChangesAsync();
 
                 var testViewModel = Mapper.Map<Test, AllTestsViewModel>(test);
 
-                var jsonRet = new CreatedResult("CreateNewTest", testViewModel);
-                return jsonRet;
+                return new CreatedResult("CreateNewTest", testViewModel);
             }
             catch (Exception e)
             {
-                return new JsonResult(e.ToString());
+                return new JsonResult(e);
             }
         }
 
@@ -53,18 +52,17 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         {
             return await ShowTestsAsync();
         }
-        
+
         [HttpGet("Show")]
         public async Task<IActionResult> ShowTestsAsync()
         {
             try
             {
-                var tests = await UnitOfWork.Context.Tests.ToListAsync();
-                return Json(tests);
+                return Json(UnitOfWork.TestRepository.GetAllTests());
             }
             catch (Exception e)
             {
-                return Content(e.ToString());
+                return new JsonResult(e);
             }
         }
 
@@ -73,15 +71,44 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         {
             try
             {
-                var test = await UnitOfWork.TestRepository.GetTest(new Guid(id));
-                return Ok(test);
+                var test = await UnitOfWork.TestRepository.GetSingleTest(new Guid(id));
+
+                var testViewModel = Mapper.Map<Test, AllTestsViewModel>(test);
+
+                return Ok(testViewModel);
             }
             catch (Exception e)
             {
-                return Content(e.ToString());
+                return new JsonResult(e);
             }
-            
-           
+        }
+
+
+        [HttpPost("Update")]
+        public async Task<IActionResult> UpdateTestAsync([FromBody]UpdateTestDto testDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            try
+            {
+                Test test = Mapper.Map<UpdateTestDto, Test>(testDto);
+
+                await UnitOfWork.TestRepository.UpdateTest(test);
+
+                await UnitOfWork.SaveChangesAsync();
+
+                
+                //var testViewModel = Mapper.Map<Test, AllTestsViewModel>(test);
+                //MapFrom goes here..
+                throw new NotImplementedException();
+
+                return Ok(testViewModel);
+            }
+            catch (Exception e)
+            {
+                return new JsonResult(e);
+            }
         }
 
 
