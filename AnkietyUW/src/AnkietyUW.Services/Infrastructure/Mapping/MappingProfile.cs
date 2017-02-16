@@ -38,7 +38,7 @@ namespace AnkietyUW.Services.Infrastructure.Mapping
             });
 
             CreateMap<Przyklad, PrzykladViewModel>().ReverseMap();
-
+            CreateMap<AnswerDto, Answer>().ReverseMap();
             CreateMap<AnswerDto, Answer>().ForMember(dst => dst.Answers, opt => opt.MapFrom(src =>  func(src.Answers) ));
 
             CreateMap<Przyklad, CreatePrzykladDto>().ReverseMap();
