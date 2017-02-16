@@ -29,15 +29,23 @@ namespace AnkietyUW.Services.Controllers.UserControllers
                 return BadRequest();
             }
             Answer answer = Mapper.Map<AnswerDto, Answer>(answerDto);
-            answer.UserId = UserId.ToString();
+            answer.UserId = UserId;
             answer.DateTime = DateTime.UtcNow;
             answer.SeriesNumber = SeriesNumber;
-            answer.TestId = TestTimeId.ToString();
+            //przeciez robisz to tam nizej
+            //answer.TestId = TestTimeId;
             try
             {
-                answer.Test = await UnitOfWork.Context.Tests.FirstOrDefaultAsync(p => p.Id == TestTimeId.ToString());
-                answer.User = await UnitOfWork.Context.Users.FirstOrDefaultAsync(p => p.Id == UserId.ToString());
+                //todo
+                //zrobić w TestRepository metody do wyciągania z TestTime Id Testu. To można zrobić za pomoc selecta. Wygooglaj albo wyciągnij po prostu cały TestTime
+                var testTime = await UnitOfWork.Context.TestTimes.FirstOrDefaultAsync(p => p.Id == TestTimeId);
+                answer.TestId = testTime.TestId;
+                //To nie jest wgl potrzebne bo Usera nie musisz dopisywać do Dto, samo Id Wystarcza
+                //answer.User = await UnitOfWork.Context.Users.FirstOrDefaultAsync(p => p.Id == UserId.ToString());
+
+                //najpierw sprawdzić czy jest Secret w bazie, jak nie ma to wypierdolić błąd że już raz usunął
                 await UnitOfWork.SecretRepository.DeleteSecret(SecretId);
+
                 await UnitOfWork.AnswerRepository.SaveAnswer(answer);
                 await UnitOfWork.SaveChangesAsync();
             }
@@ -54,7 +62,7 @@ namespace AnkietyUW.Services.Controllers.UserControllers
         [HttpGet]
         public async Task<IActionResult> GetQuestions()
         {
-            QuestionsForUser questions = new QuestionsForUser();
+            QuestionsForUserViewModel questions = new QuestionsForUserViewModel();
             try {
                 questions.questions = QuestionProvider.QuestionsForSeriesNumber(SeriesNumber);
             }
