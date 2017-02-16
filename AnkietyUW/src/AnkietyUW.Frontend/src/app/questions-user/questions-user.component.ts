@@ -1,4 +1,6 @@
 import { Input, Component, OnInit } from '@angular/core';
+import {UserService} from '../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-questions-user',
@@ -10,12 +12,15 @@ export class QuestionsUserComponent implements OnInit {
   @Input()
   seriesNumber: number[][];
 
+  @Input()
+  token: string;
+
   answersWithLablesEmocje: AnswerWithLabel[];
   answersWithLabelsRest: AnswerWithLabel[];
   chosenAnswer: number[];
 
 
-  constructor() {
+  constructor(private router: Router,private userService: UserService) {
     this.chosenAnswer = [];
 
     for (let i = 0; i < 15; i++)
@@ -33,6 +38,12 @@ export class QuestionsUserComponent implements OnInit {
   }
 
   ngOnInit() {
+
+  }
+
+  submitAnswers(){
+      this.userService.postAnswers(this.chosenAnswer,this.token).subscribe(res => {
+      });
 
   }
 

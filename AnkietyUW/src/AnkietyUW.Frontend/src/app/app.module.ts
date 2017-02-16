@@ -8,21 +8,27 @@ import { UserAnswerComponent } from './user-answer/user-answer.component';
 import { QuestionsUserComponent } from './questions-user/questions-user.component';
 import { MaterialModule } from '@angular/material';
 import { RegisterUserComponent } from './register-user/register-user.component';
+import { UserService } from './services/user.service';
+import { AdminService } from './services/admin.service';
+import { ActionCompletedUserComponent } from './action-completed-user/action-completed-user.component';
+import { MdSnackBarModule, MdSnackBar } from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent,
     UserAnswerComponent,
     QuestionsUserComponent,
-    RegisterUserComponent
+    RegisterUserComponent,
+    ActionCompletedUserComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    MaterialModule.forRoot()
+    MaterialModule.forRoot(),
+    MdSnackBarModule
   ],
-  providers: [],
+  providers: [UserService, AdminService,MdSnackBar],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

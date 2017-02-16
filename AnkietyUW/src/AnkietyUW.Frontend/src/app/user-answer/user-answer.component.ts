@@ -4,7 +4,7 @@ import { JwtHelper } from 'angular2-jwt';
 import { QuestionsUserComponent } from './../questions-user/questions-user.component';
 import { Observable } from "rxjs/Observable";
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-
+import { UserService } from './../services/user.service';
 @Component({
   selector: 'app-user-answer',
   templateUrl: './user-answer.component.html',
@@ -12,7 +12,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 })
 export class UserAnswerComponent implements OnInit, OnDestroy {
 
-  constructor(private route: ActivatedRoute, private http: Http) { }
+  constructor(private route: ActivatedRoute, private http: Http, private userService: UserService) { }
 
   private sub: any;
   decodedToken: any;
@@ -33,32 +33,18 @@ export class UserAnswerComponent implements OnInit, OnDestroy {
       let helper: JwtHelper = new JwtHelper();
       this.decodedToken = helper.decodeToken(this.token);
 
-
       console.log(this.decodedToken);
 
-      this.getQuestions().subscribe(res => {
-        console.log(res);
-        this.questionsNumbers = res;
-      })
+      this.questionsNumbers = [[1,2,5,6,16,19,22,24,25],[9,13,19],[4,13,19]];
+      // this.userService.getQuestions(this.token).subscribe(res => {
+      //   console.log(res);
+      //   this.questionsNumbers = res;
+      // })
 
     });
 
   }
 
-  getQuestions(): Observable<number[][]> {
-
-    let headers = new Headers({ 'Accept': 'application/json' });
-
-    headers.append('token', this.token);
-
-    let options = new RequestOptions({ headers: headers });
-    console.log(options);
-    return this.http.get("http://localhost:53980/Answers", options).map(res =>
-      res.json()
-    );
-
-
-  }
 
 
   ngOnDestroy() {
