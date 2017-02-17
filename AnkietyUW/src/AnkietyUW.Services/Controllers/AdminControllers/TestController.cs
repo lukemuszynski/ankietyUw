@@ -40,11 +40,11 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
 
                 var testViewModel = Mapper.Map<Test, AllTestsViewModel>(test);
 
-                return new CreatedResult("CreateNewTest", testViewModel);
+                return new OkObjectResult(testViewModel);
             }
             catch (Exception e)
             {
-                return new JsonResult(e);
+                return new BadRequestObjectResult(e);
             }
         }
 
@@ -58,11 +58,11 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         {
             try
             {
-                return Json(UnitOfWork.TestRepository.GetAllTests());
+                return new OkObjectResult( UnitOfWork.TestRepository.GetAllTests().Result );
             }
             catch (Exception e)
             {
-                return new JsonResult(e);
+                return new BadRequestObjectResult(e);
             }
         }
 
@@ -71,15 +71,15 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         {
             try
             {
-                var test = await UnitOfWork.TestRepository.GetSingleTest(new Guid(id));
+                var test = await UnitOfWork.TestRepository.GetSingleTest(Guid.Parse(id));
 
                 var testViewModel = Mapper.Map<Test, AllTestsViewModel>(test);
 
-                return Ok(testViewModel);
+                return new OkObjectResult(testViewModel);
             }
             catch (Exception e)
             {
-                return new JsonResult(e);
+                return new BadRequestObjectResult(e);
             }
         }
 
@@ -97,17 +97,14 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
                 await UnitOfWork.TestRepository.UpdateTest(test);
 
                 await UnitOfWork.SaveChangesAsync();
-
                 
                 var testViewModel = Mapper.Map<Test, AllTestsViewModel>(test);
-                //MapFrom goes here..
-                throw new NotImplementedException();
 
-                return Ok(testViewModel);
+                return new OkObjectResult(testViewModel);
             }
             catch (Exception e)
             {
-                return new JsonResult(e);
+                return new BadRequestObjectResult(e);
             }
         }
 
