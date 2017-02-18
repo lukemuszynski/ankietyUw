@@ -58,7 +58,9 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         {
             try
             {
-                return new OkObjectResult( UnitOfWork.TestRepository.GetAllTests().Result );
+                var list = await UnitOfWork.TestRepository.GetAllTests();
+                var vmList = Mapper.Map<ICollection<Test>, ICollection<AllTestsViewModel>>(list);
+                return new OkObjectResult(vmList);
             }
             catch (Exception e)
             {
