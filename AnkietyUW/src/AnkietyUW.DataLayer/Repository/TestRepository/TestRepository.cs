@@ -39,5 +39,10 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
             var test = await Context.Tests.Include(t => t.Users).Include(t => t.TestTimes).FirstOrDefaultAsync(t => t.Id == id);
             return test;
         }
+
+        public void DeleteTest(Test test)
+        {
+            Context.Tests.Remove(test);
+        }
     }
 }

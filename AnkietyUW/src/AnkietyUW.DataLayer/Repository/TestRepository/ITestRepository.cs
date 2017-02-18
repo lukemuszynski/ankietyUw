@@ -12,5 +12,6 @@ namespace AnkietyUW.DataLayer.Repository
         Task<Test> UpdateTest(Test test);
         Task<Test> GetSingleTest(Guid id);
         Task<ICollection<Test>> GetAllTests();
+        void DeleteTest(Test test);
     }
 }

@@ -108,6 +108,26 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
             }
         }
 
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> DeleteTestAsync(string id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
 
+            try
+            {
+                Test tempTest = new Test() {Id = Guid.Parse(id)};
+
+                UnitOfWork.TestRepository.DeleteTest(tempTest);
+
+                await UnitOfWork.SaveChangesAsync();
+
+                return new OkResult();
+            }
+            catch (Exception e)
+            {
+                return new BadRequestObjectResult(e);
+            }
+        }
     }
 }
