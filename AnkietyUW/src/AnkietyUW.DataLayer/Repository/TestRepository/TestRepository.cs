@@ -31,7 +31,7 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
         public async Task<ICollection<Test>> GetAllTests()
         {
             //todo: can it be done using DTO's?
-            return Context.Tests.ToList();
+            return await Context.Tests.ToListAsync();
         }
 
         public async Task<Test> GetSingleTest(Guid id)
