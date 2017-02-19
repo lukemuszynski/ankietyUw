@@ -8,6 +8,7 @@ namespace AnkietyUW.DataLayer.Repository
 {
     public interface ITestRepository
     {
+        Task<Test> GetTestByTestTimeId(Guid id);
         Task<Test> AddTest(Test test);
         Task<Test> UpdateTest(Test test);
         Task<Test> GetSingleTest(Guid id);
