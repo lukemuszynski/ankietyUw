@@ -23,7 +23,8 @@
     "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0",
     "AutoMapper": "5.2.0",
     "AutoMapper.Extensions.Microsoft.DependencyInjection": "1.1.2",
-    "Microsoft.AspNetCore.Diagnostics": "1.0.0"
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0",
+    "Sendgrid": "9.0.12"
   },
 
   "tools": {

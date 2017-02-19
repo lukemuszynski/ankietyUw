@@ -20,9 +20,14 @@ namespace AnkietyUW.DataLayer.Repository.SecretRepository
             throw new NotImplementedException();
         }
 
-        public Task<Secret> CreateSecret(Guid userId)
+        public async Task<Secret> CreateSecret(Guid userId, int seriesNumber)
         {
-            throw new NotImplementedException();
+            var secret = new Secret();
+            secret.Id = new Guid();
+            secret.UserId = userId;
+            secret.SeriesNumber = seriesNumber;
+            Context.Secrets.Add(secret);
+            return secret;
         }
     }
 }
