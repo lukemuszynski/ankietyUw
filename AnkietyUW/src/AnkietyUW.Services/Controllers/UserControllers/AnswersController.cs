@@ -15,6 +15,15 @@ namespace AnkietyUW.Services.Controllers.UserControllers
     [Route("Answers")]
     public class AnswersController : BaseUserController
     {
+
+        protected IQuestionsProvider QuestionProvider { get; set; }
+
+        public AnswersController(IUnitOfWork unitOfWork, IQuestionsProvider questionProvider) : base(unitOfWork)
+        {
+            QuestionProvider = questionProvider;
+        }
+
+
         //Metoda do zapisu odpowiedzi z ankiety
         [HttpPost("Save")]
         //[Route]
@@ -75,15 +84,6 @@ namespace AnkietyUW.Services.Controllers.UserControllers
             
             return Ok(questions);
         }
-        
-        public AnswersController(IUnitOfWork unitOfWork, IQuestionsProvider questionProvider) : base(unitOfWork)
-        {
-            QuestionProvider = questionProvider;
-        }
-
-        protected IQuestionsProvider QuestionProvider { get; set; }
-
-
 
     }
 }
