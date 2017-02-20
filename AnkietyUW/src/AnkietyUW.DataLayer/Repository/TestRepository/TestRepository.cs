@@ -43,5 +43,18 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
         {
             Context.Tests.Remove(test);
         }
+
+        public async Task<Test> GetTestByTestTimeId(Guid id)
+        {
+            var query = Context.Tests.ToArray();
+            foreach (var test in query)
+            {
+                if (test.TestTimes.SingleOrDefault(p => p.Id == id) != null)
+                {
+                    return test;
+                }
+            }
+            return null;
+        }
     }
 }

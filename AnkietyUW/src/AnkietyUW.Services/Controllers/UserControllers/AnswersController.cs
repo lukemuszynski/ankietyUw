@@ -32,20 +32,24 @@ namespace AnkietyUW.Services.Controllers.UserControllers
             answer.UserId = UserId;
             answer.DateTime = DateTime.UtcNow;
             answer.SeriesNumber = SeriesNumber;
-            //przeciez robisz to tam nizej
-            //answer.TestId = TestTimeId;
             try
             {
                 //todo
                 //zrobić w TestRepository metody do wyciągania z TestTime Id Testu. To można zrobić za pomoc selecta. Wygooglaj albo wyciągnij po prostu cały TestTime
                 var testTime = await UnitOfWork.Context.TestTimes.FirstOrDefaultAsync(p => p.Id == TestTimeId);
-                answer.TestId = testTime.TestId;
-                //To nie jest wgl potrzebne bo Usera nie musisz dopisywać do Dto, samo Id Wystarcza
-                //answer.User = await UnitOfWork.Context.Users.FirstOrDefaultAsync(p => p.Id == UserId.ToString());
+                Test test = await UnitOfWork.TestRepository.GetTestByTestTimeId(TestTimeId);
+                answer.TestId = test.Id;
 
                 //najpierw sprawdzić czy jest Secret w bazie, jak nie ma to wypierdolić błąd że już raz usunął
-                await UnitOfWork.SecretRepository.DeleteSecret(SecretId);
-
+                var valid = await UnitOfWork.Context.Secrets.SingleOrDefaultAsync(p => p.Id == SecretId);
+                if (valid != null)
+                {
+                    await UnitOfWork.SecretRepository.DeleteSecret(SecretId);
+                }
+                else
+                {
+                    return BadRequest("Answer already submited");
+                }
                 await UnitOfWork.AnswerRepository.SaveAnswer(answer);
                 await UnitOfWork.SaveChangesAsync();
             }
