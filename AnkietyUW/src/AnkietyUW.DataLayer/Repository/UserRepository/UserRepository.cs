@@ -44,9 +44,16 @@ namespace AnkietyUW.DataLayer.Repository.UserRepository
             throw new NotImplementedException();
         }
 
-        public Task<User> AddEmailToUserWithKey(string key, string emailAddress)
+        public async Task<User> AddEmailToUserWithKey(string key, string emailAddress)
         {
-            throw new NotImplementedException();
+            var user = await Context.Users.FirstOrDefaultAsync(u => u.Key == key);
+
+            if (string.IsNullOrEmpty(user?.EmailAddress))
+                return null;
+
+            user.EmailAddress = emailAddress;
+            user.Active = true;
+            return user;
         }
     }
 }

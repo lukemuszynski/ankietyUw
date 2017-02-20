@@ -9,6 +9,6 @@ namespace AnkietyUW.DataLayer.Repository.SecretRepository
     public interface ISecretRepository
     {
         Task<bool> DeleteSecret(Guid secretId);
-        Task<Secret> CreateSecret(Guid userId);
+        Task<Secret> CreateSecret(Guid userId, int seriesNumber);
     }
 }

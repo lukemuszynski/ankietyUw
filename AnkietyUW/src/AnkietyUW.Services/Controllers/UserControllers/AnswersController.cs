@@ -20,8 +20,8 @@ namespace AnkietyUW.Services.Controllers.UserControllers
     public class AnswersController : BaseUserController
     {
         //Metoda do zapisu odpowiedzi z ankiety
-        [HttpPost]
-        [Route("Save")]
+        [HttpPost("Save")]
+        //[Route]
         public async Task<IActionResult> SaveAnswerAsync([FromBody]AnswerDto answerDto)
         {
             if (!ModelState.IsValid)

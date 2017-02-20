@@ -35,11 +35,11 @@ export class UserAnswerComponent implements OnInit, OnDestroy {
 
       console.log(this.decodedToken);
 
-      this.questionsNumbers = [[1,2,5,6,16,19,22,24,25],[9,13,19],[4,13,19]];
-      // this.userService.getQuestions(this.token).subscribe(res => {
-      //   console.log(res);
-      //   this.questionsNumbers = res;
-      // })
+      //this.questionsNumbers = [[1,2,5,6,16,19,22,24,28],[1,13,20],[1,13,20]];
+      this.userService.getQuestions(this.token).subscribe(res => {
+        console.log(res);
+        this.questionsNumbers = res.questions;
+      })
 
     });
 

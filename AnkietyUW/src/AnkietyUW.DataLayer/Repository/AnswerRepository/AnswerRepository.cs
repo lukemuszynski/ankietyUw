@@ -24,9 +24,12 @@ namespace AnkietyUW.DataLayer.Repository.AnswerRepository
             throw new NotImplementedException();
         }
 
-        public Task<Answer> SaveAnswer(Answer answer)
+        public async Task<Answer> SaveAnswer(Answer answer)
         {
-            throw new NotImplementedException();
+            answer.Id = Guid.NewGuid();
+            Context.Answers.Add(answer);
+            return answer;
+            //throw new NotImplementedException();
         }
     }
 }

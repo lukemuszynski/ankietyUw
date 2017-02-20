@@ -44,6 +44,12 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
             Context.Tests.Remove(test);
         }
 
+        public async Task<List<Test>> GetAllNotCompletedTestsWithTestTimesAndUsers()
+        {
+            var tests = await Context.Tests.Include(t => t.Users).Include(t => t.TestTimes).Where(t => t.CompletedSeriesCounter < 60).ToListAsync();
+            return tests;
+        }
+
         public async Task<Test> GetTestByTestTimeId(Guid id)
         {
             var query = Context.Tests.ToArray();

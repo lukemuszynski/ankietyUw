@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AnkietyUW.Contracts.UserDto
+namespace AnkietyUW.Utilities
 {
-    public class AnswerDto
+    public interface IMailSender
     {
 
-        public List<int> Answers { get; set; }
+
+
+
+ 
 
     }
 }

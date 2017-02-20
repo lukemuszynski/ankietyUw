@@ -1,6 +1,7 @@
 import { Input, Component, OnInit } from '@angular/core';
-import {UserService} from '../services/user.service';
+import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { AnswerDto } from '../../models/answerDto';
 
 @Component({
   selector: 'app-questions-user',
@@ -20,7 +21,7 @@ export class QuestionsUserComponent implements OnInit {
   chosenAnswer: number[];
 
 
-  constructor(private router: Router,private userService: UserService) {
+  constructor(private router: Router, private userService: UserService) {
     this.chosenAnswer = [];
 
     for (let i = 0; i < 15; i++)
@@ -33,17 +34,61 @@ export class QuestionsUserComponent implements OnInit {
     this.answersWithLablesEmocje.push({ val: 4, label: "Zdecydowanie tak" });
 
     this.answersWithLabelsRest = [];
-    this.answersWithLabelsRest.push({val: 1, label: "Nie"});
-    this.answersWithLabelsRest.push({val: 2, label: "Tak"});
+    this.answersWithLabelsRest.push({ val: 1, label: "Nie" });
+    this.answersWithLabelsRest.push({ val: 2, label: "Tak" });
   }
 
   ngOnInit() {
 
   }
 
-  submitAnswers(){
-      this.userService.postAnswers(this.chosenAnswer,this.token).subscribe(res => {
-      });
+  submitAnswers() {
+
+    let answerDto: AnswerDto = new AnswerDto();
+    // this.chosenAnswer;
+    //answerDto.answers = this.chosenAnswer;
+    answerDto.answers = [];
+
+    for (let i = 0; i < 68; i++) {
+      answerDto.answers.push(-1);
+    }
+
+    //let j = 0;
+    let k = 0;
+    console.info(this.chosenAnswer);
+
+    let t = 0;
+
+    for (let i = 0; i < this.seriesNumber[0].length; i++) {
+
+      //numer pytania z emocji
+      //this.seriesNumber[0][i]
+      let odpowiedzNaIpytanie = this.chosenAnswer[t];
+      t++;
+      answerDto.answers[this.seriesNumber[0][i]-1] = odpowiedzNaIpytanie;
+    }
+
+    for (let i = 0; i < this.seriesNumber[1].length; i++) {
+
+      //numer pytania z emocji
+      //this.seriesNumber[0][i]
+      let odpowiedzNaIpytanie = this.chosenAnswer[t];
+      t++;
+
+      answerDto.answers[this.seriesNumber[1][i]+27] = odpowiedzNaIpytanie;
+    }
+    for (let i = 0; i < this.seriesNumber[2].length; i++) {
+
+      //numer pytania z emocji
+      //this.seriesNumber[0][i]
+      let odpowiedzNaIpytanie = this.chosenAnswer[t];
+      t++;
+      answerDto.answers[this.seriesNumber[2][i]+47] = odpowiedzNaIpytanie;
+    }
+
+    console.info(answerDto);
+    this.userService.postAnswers(answerDto, this.token).subscribe(res => {
+    });
 
   }
 
