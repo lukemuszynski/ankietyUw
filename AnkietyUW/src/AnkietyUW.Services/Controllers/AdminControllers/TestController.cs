@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AnkietyUW.Contracts.TestDto.DataTransferObjects;
 using AnkietyUW.Contracts.TestDto.ViewModels;
@@ -9,7 +8,6 @@ using AnkietyUW.DataLayer.UnitOfWork;
 using AnkietyUW.Services.Infrastructure.BaseControllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace AnkietyUW.Services.Controllers.AdminControllers
 {

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AnkietyUW.DataLayer.UnitOfWork;
 using AnkietyUW.Services.Infrastructure.BaseControllers;
 using AnkietyUW.DataLayer.Entities;
-using AnkietyUW.DataLayer.Repository.AnswerRepository;
-using AnkietyUW.DataLayer.Repository.SecretRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AnkietyUW.Utilities;

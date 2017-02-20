@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AnkietyUW.Contracts.Przyklad.DataTransferObjects;
 using AnkietyUW.Contracts.Przyklad.ViewModels;
@@ -12,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AnkietyUW.Services.Controllers.TestControllers
 {
-    
+
     public class PrzykladowyController : BaseUserController
     {
         public PrzykladowyController(IUnitOfWork unitOfWork) : base(unitOfWork)

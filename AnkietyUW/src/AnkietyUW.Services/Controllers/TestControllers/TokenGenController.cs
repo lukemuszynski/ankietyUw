@@ -4,7 +4,7 @@ using AnkietyUW.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnkietyUW.Services.Controllers.TestControllers
-{   
+{
     [Route("Token")]
     public class TokenGenController : Controller
     {
