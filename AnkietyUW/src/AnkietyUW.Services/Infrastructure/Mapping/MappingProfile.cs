@@ -4,8 +4,6 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AnkietyUW.Contracts.AnswerDto.DataTransferObjects;
-using AnkietyUW.Contracts.Przyklad.DataTransferObjects;
-using AnkietyUW.Contracts.Przyklad.ViewModels;
 using AnkietyUW.Contracts.TestDto.DataTransferObjects;
 using AnkietyUW.Contracts.TestDto.ViewModels;
 using AnkietyUW.DataLayer.Entities;
