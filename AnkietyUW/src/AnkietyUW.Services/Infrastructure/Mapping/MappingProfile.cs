@@ -40,6 +40,8 @@ namespace AnkietyUW.Services.Infrastructure.Mapping
 
             CreateMap<Test, CreateTestDto>().ReverseMap();
             CreateMap<Test, AllTestsViewModel>().ReverseMap();
+
+            CreateMap<TestTime, TestTimeDto>().ReverseMap();
             
             CreateMap<UpdateTestDto,Test>().ForMember(dst => dst.Id, opt => opt.MapFrom(src => Guid.Parse(src.Id)));
         }
