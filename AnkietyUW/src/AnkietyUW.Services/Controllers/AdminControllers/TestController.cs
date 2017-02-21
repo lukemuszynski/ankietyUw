@@ -9,6 +9,7 @@ using AnkietyUW.DataLayer.UnitOfWork;
 using AnkietyUW.Services.Infrastructure.BaseControllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnkietyUW.Services.Controllers.AdminControllers
 {
@@ -23,9 +24,8 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         {
         }
 
-        [HttpPost]
-        [Route("CreateNewTest")]
-        public async Task<IActionResult> CreateNewTest([FromBody]CreateTestDto createTestDto)
+        [HttpPost("Create")]
+        public async Task<IActionResult> CreateNewTestAsync([FromBody]CreateTestDto createTestDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -46,28 +46,39 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
             catch (Exception e)
             {
                 return new JsonResult(e.ToString());
-
             }
-
-           
-            throw new NotImplementedException();
-           // return new AllTestsViewModel();
         }
 
-        [HttpGet("Show/{id}")]
-        public async Task<IActionResult> ShowTests(string id)
+        public async Task<IActionResult> Index()
+        {
+            return await ShowTestsAsync();
+        }
+        
+        [HttpGet("Show")]
+        public async Task<IActionResult> ShowTestsAsync()
         {
             try
             {
-                var test = await UnitOfWork.TestRepository.GetTest(id);
+                var tests = await UnitOfWork.Context.Tests.ToListAsync();
+                return Json(tests);
+            }
+            catch (Exception e)
+            {
+                return Content(e.ToString());
+            }
+        }
+
+        [HttpGet("Show/{id}")]
+        public async Task<IActionResult> ShowTestAsync(string id)
+        {
+            try
+            {
+                var test = await UnitOfWork.TestRepository.GetTest(new Guid(id));
                 return Ok(test);
             }
             catch (Exception e)
             {
-                //Console.WriteLine(e);
-                //var br =  new BadRequestResult();
-                
-                return Ok(e);
+                return Content(e.ToString());
             }
             
            

@@ -11,17 +11,17 @@ namespace AnkietyUW.DataLayer.Entities
 {
     public class Answer
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime DateTime { get; set; }
 
         [ForeignKey("Test")]
-        public string TestId { get; set; }
+        public Guid TestId { get; set; }
         public Test Test { get; set; }
 
         public int SeriesNumber { get; set; }
 
         [ForeignKey("User")]
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
         public User User { get; set; }
 
         [NotMapped]
