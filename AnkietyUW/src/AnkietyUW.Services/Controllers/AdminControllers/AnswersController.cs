@@ -8,9 +8,8 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
         //Wypisanie odpowiedzi do danego testu
         public AnswersController(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
+
         }
-
-
 
     }
 }

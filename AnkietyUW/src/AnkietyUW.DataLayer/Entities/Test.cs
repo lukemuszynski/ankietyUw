@@ -9,6 +9,7 @@ namespace AnkietyUW.DataLayer.Entities
 {
     public class Test
     {
+
         public Guid Id { get; set; }
         public int FirstQuestionAddSeconds { get; set; }
         public int SecondQuestionAddSeconds { get; set; }

@@ -20,6 +20,7 @@ namespace AnkietyUW.Contracts.TestDto.DataTransferObjects
         public int CompletedSeriesCounter { get; set; }
         [Required]
         public int TimeToFillTestAddSeconds { get; set; }
+        //todo: list of TestTime DTOs
 
     }
 }
