@@ -11,7 +11,7 @@ import { RegisterUserComponent } from './register-user/register-user.component';
 import { UserService } from './services/user.service';
 import { AdminService } from './services/admin.service';
 import { ActionCompletedUserComponent } from './action-completed-user/action-completed-user.component';
-import { MdSnackBarModule, MdSnackBar } from '@angular/material';
+import { MdSnackBarModule, MdSnackBar, MdInputModule } from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +26,8 @@ import { MdSnackBarModule, MdSnackBar } from '@angular/material';
     HttpModule,
     AppRoutingModule,
     MaterialModule.forRoot(),
-    MdSnackBarModule
+    MdSnackBarModule,
+    MdInputModule
   ],
   providers: [UserService, AdminService,MdSnackBar],
   bootstrap: [AppComponent]

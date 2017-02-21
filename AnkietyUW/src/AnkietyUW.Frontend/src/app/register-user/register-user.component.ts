@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { UserService } from './../services/user.service';
 import { Router } from '@angular/router';
-import { MdSnackBar, MdSnackBarConfig, MdInput } from '@angular/material';
+import { MdSnackBar, MdSnackBarConfig, MdInputDirective } from '@angular/material';
 @Component({
   selector: 'app-register-user',
   templateUrl: './register-user.component.html',
@@ -18,11 +18,11 @@ export class RegisterUserComponent implements OnInit {
   key: string = "";
 
   @ViewChild("registerForm") form: FormData;
-  @ViewChild("key0") key0: MdInput;
-  @ViewChild("key1") key1: MdInput;
-  @ViewChild("key2") key2: MdInput;
-  @ViewChild("key3") key3: MdInput;
-  @ViewChild("key4") key4: MdInput;
+  @ViewChild("key0") key0: MdInputDirective;
+  @ViewChild("key1") key1: MdInputDirective;
+  @ViewChild("key2") key2: MdInputDirective;
+  @ViewChild("key3") key3: MdInputDirective;
+  @ViewChild("key4") key4: MdInputDirective;
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -38,8 +38,8 @@ export class RegisterUserComponent implements OnInit {
   }
 
   registerUser(k0, k1, k2, k3, k4) {
-
-     this.router.navigate(["user-action-completed"]);
+    
+    // this.router.navigate(["user-action-completed"]);
 
     if (!k0 || !k1 || !k2 || !k3 || !k4 || k0 == "" || k1 == "" || k2 == "" || k3 == "" || k4 == "")
     { this.openSnackBar(); return; }
