@@ -33,17 +33,39 @@ namespace AnkietyUW.Services.Controllers.UserControllers
             {
                 return BadRequest();
             }
-            Answer answer = Mapper.Map<AnswerDto, Answer>(answerDto);
-            answer.UserId = UserId;
-            answer.DateTime = DateTime.UtcNow;
-            answer.SeriesNumber = SeriesNumber;
+
             try
             {
-                //todo
-                //zrobić w TestRepository metody do wyciągania z TestTime Id Testu. To można zrobić za pomoc selecta. Wygooglaj albo wyciągnij po prostu cały TestTime
-                var testTime = await UnitOfWork.Context.TestTimes.FirstOrDefaultAsync(p => p.Id == TestTimeId);
-                Test test = await UnitOfWork.TestRepository.GetTestByTestTimeId(TestTimeId);
-                answer.TestId = test.Id;
+                Answer answer = Mapper.Map<AnswerDto, Answer>(answerDto);
+                answer.UserId = UserId;
+                answer.DateTime = DateTime.UtcNow;
+                answer.SeriesNumber = SeriesNumber;
+
+
+                var testTime = await UnitOfWork.TestRepository.GetTestTimeWithTestByTestTimeId(TestTimeId);
+
+                if (testTime.DateTime != DateTime.UtcNow.Date)
+                    return BadRequest("Token is outdated");
+
+                switch (SeriesNumber % 4)
+                {
+                    case 0:
+                        if (DateTime.UtcNow > testTime.DateTime.AddSeconds(testTime.Test.FirstQuestionAddSeconds + testTime.Test.TimeToFillTestAddSeconds))
+                            return BadRequest("Time to fill has passed");
+                        break;
+                    case 1:
+                        if (DateTime.UtcNow > testTime.DateTime.AddSeconds(testTime.Test.SecondQuestionAddSeconds + testTime.Test.TimeToFillTestAddSeconds))
+                            return BadRequest("Time to fill has passed");
+                        break;
+                    case 2:
+                        if (DateTime.UtcNow > testTime.DateTime.AddSeconds(testTime.Test.ThirdQuestionAddSeconds + testTime.Test.TimeToFillTestAddSeconds))
+                            return BadRequest("Time to fill has passed");
+                        break;
+                    case 3:
+                        if (DateTime.UtcNow > testTime.DateTime.AddSeconds(testTime.Test.FourthQuestionAddSeconds + testTime.Test.TimeToFillTestAddSeconds))
+                            return BadRequest("Time to fill has passed");
+                        break;
+                }
 
                 //najpierw sprawdzić czy jest Secret w bazie, jak nie ma to wypierdolić błąd że już raz usunął
                 var valid = await UnitOfWork.Context.Secrets.SingleOrDefaultAsync(p => p.Id == SecretId);
@@ -55,6 +77,7 @@ namespace AnkietyUW.Services.Controllers.UserControllers
                 {
                     return BadRequest("Answer already submited");
                 }
+
                 await UnitOfWork.AnswerRepository.SaveAnswer(answer);
                 await UnitOfWork.SaveChangesAsync();
             }
@@ -62,7 +85,7 @@ namespace AnkietyUW.Services.Controllers.UserControllers
             {
                 return BadRequest(exc);
             }
-            
+
             return Ok();
 
         }
@@ -72,16 +95,17 @@ namespace AnkietyUW.Services.Controllers.UserControllers
         public async Task<IActionResult> GetQuestions()
         {
             QuestionsForUserViewModel questions = new QuestionsForUserViewModel();
-            try {
+            try
+            {
                 questions.questions = QuestionProvider.QuestionsForSeriesNumber(SeriesNumber);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var k = new JsonResult(ex);
                 k.StatusCode = 500;
                 return k;
             }
-            
+
             return Ok(questions);
         }
 

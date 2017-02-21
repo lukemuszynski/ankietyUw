@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -51,6 +52,7 @@ namespace AnkietyUW.Services
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<ITestRepository, TestRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.TryAddSingleton<IConfigurationRepository, ConfigurationRepository>();
             services.AddCors();
             services.AddMvc().AddJsonOptions(options =>
             {
