@@ -52,15 +52,28 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
 
         public async Task<Test> GetTestByTestTimeId(Guid id)
         {
-            var query = Context.Tests.ToArray();
-            foreach (var test in query)
-            {
-                if (test.TestTimes.SingleOrDefault(p => p.Id == id) != null)
-                {
-                    return test;
-                }
-            }
-            return null;
+
+            var test = await Context.TestTimes.Include(tt => tt.Test).FirstOrDefaultAsync(tt => tt.Id == id);
+
+            return test.Test;
+
+            //var query = Context.Tests.ToArray();
+            //foreach (var test in query)
+            //{
+            //    if (test.TestTimes.SingleOrDefault(p => p.Id == id) != null)
+            //    {
+            //        return test;
+            //    }
+            //}
+            //return null;
+        }
+
+        public async Task<TestTime> GetTestTimeWithTestByTestTimeId(Guid id)
+        {
+            var test = await Context.TestTimes.Include(tt => tt.Test).FirstOrDefaultAsync(tt => tt.Id == id);
+
+            return test;
+
         }
     }
 }
