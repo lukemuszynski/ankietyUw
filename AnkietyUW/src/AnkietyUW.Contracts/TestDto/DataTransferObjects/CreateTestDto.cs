@@ -17,8 +17,6 @@ namespace AnkietyUW.Contracts.TestDto.DataTransferObjects
         [Required]
         public int FourthQuestionAddSeconds { get; set; }
         [Required]
-        public int CompletedSeriesCounter { get; set; }
-        [Required]
         public ICollection<TestTimeDto> TestTimes { get; set; }
         [Required]
         public int TimeToFillTestAddSeconds { get; set; }
