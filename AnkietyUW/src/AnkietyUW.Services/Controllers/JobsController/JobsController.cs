@@ -11,6 +11,7 @@ using SendGrid.Helpers.Mail;
 
 namespace AnkietyUW.Services.Controllers.JobsController
 {
+    [Route("Emails")]
     public class JobsController : BaseAdminController
     {
 
@@ -22,6 +23,7 @@ namespace AnkietyUW.Services.Controllers.JobsController
             JwtUtility = jwtUtility;
         }
 
+        [HttpPost("Send")]
         public async Task<IActionResult> SendEmailsForAllTests()
         {
 

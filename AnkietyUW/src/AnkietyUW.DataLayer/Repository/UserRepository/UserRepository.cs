@@ -48,7 +48,7 @@ namespace AnkietyUW.DataLayer.Repository.UserRepository
         {
             var user = await Context.Users.FirstOrDefaultAsync(u => u.Key == key);
 
-            if (string.IsNullOrEmpty(user?.EmailAddress))
+            if (!string.IsNullOrEmpty(user?.EmailAddress))
                 return null;
 
             user.EmailAddress = emailAddress;
