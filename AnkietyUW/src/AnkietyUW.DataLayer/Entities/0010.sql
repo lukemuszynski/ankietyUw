@@ -4,6 +4,7 @@
     [TestId]       UNIQUEIDENTIFIER NOT NULL,
     [SeriesNumber] INT              NOT NULL,
     [UserId]       UNIQUEIDENTIFIER NOT NULL,
+	[AnswersCSV]   VARCHAR(300) NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

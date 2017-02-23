@@ -31,6 +31,7 @@ namespace AnkietyUW.Services.Controllers.JobsController
             {
                 int timeWindow = 120;
                 var tests = await UnitOfWork.TestRepository.GetAllNotCompletedTestsWithTestTimesAndUsers();
+                var dateTimeNow = DateTime.UtcNow;
 
                 foreach (var test in tests)
                 {
@@ -41,27 +42,28 @@ namespace AnkietyUW.Services.Controllers.JobsController
 
                         if (testtime.DateTime == DateTime.UtcNow.Date)
                         {
-                            if (
-                                (DateTime.UtcNow.AddSeconds(-timeWindow) <
-                                 testtime.DateTime.AddSeconds(test.FirstQuestionAddSeconds) &&
-                                 DateTime.UtcNow.AddSeconds(timeWindow) >
-                                 testtime.DateTime.AddSeconds(test.FirstQuestionAddSeconds)) ||
 
-                                (DateTime.UtcNow.AddSeconds(-timeWindow) <
-                                 testtime.DateTime.AddSeconds(test.ThirdQuestionAddSeconds) &&
-                                 DateTime.UtcNow.AddSeconds(timeWindow) >
-                                 testtime.DateTime.AddSeconds(test.ThirdQuestionAddSeconds)) ||
 
-                                (DateTime.UtcNow.AddSeconds(-timeWindow) <
-                                 testtime.DateTime.AddSeconds(test.FourthQuestionAddSeconds) &&
-                                 DateTime.UtcNow.AddSeconds(timeWindow) >
-                                 testtime.DateTime.AddSeconds(test.FourthQuestionAddSeconds)) ||
+                            var firstQuestionDateTime = testtime.DateTime.AddSeconds(test.FirstQuestionAddSeconds);
+                            var secondQuestionDateTime = testtime.DateTime.AddSeconds(test.SecondQuestionAddSeconds);
+                            var thirdQuestionDateTime = testtime.DateTime.AddSeconds(test.ThirdQuestionAddSeconds);
+                            var fourthQuestionDateTime = testtime.DateTime.AddSeconds(test.FourthQuestionAddSeconds);
 
-                                (DateTime.UtcNow.AddSeconds(-timeWindow) <
-                                 testtime.DateTime.AddSeconds(test.SecondQuestionAddSeconds) &&
-                                 DateTime.UtcNow.AddSeconds(timeWindow) >
-                                 testtime.DateTime.AddSeconds(test.SecondQuestionAddSeconds))
-                            )
+
+                            bool firstInBound = firstQuestionDateTime.AddSeconds(-timeWindow) < dateTimeNow &&
+                                                firstQuestionDateTime.AddSeconds(timeWindow) > dateTimeNow;
+
+                            bool secondInBound = secondQuestionDateTime.AddSeconds(-timeWindow) < dateTimeNow &&
+                                          secondQuestionDateTime.AddSeconds(timeWindow) > dateTimeNow;
+
+                            bool thirdInBound = thirdQuestionDateTime.AddSeconds(-timeWindow) < dateTimeNow &&
+                                        thirdQuestionDateTime.AddSeconds(timeWindow) > dateTimeNow;
+
+                            bool fourthInBound = fourthQuestionDateTime.AddSeconds(-timeWindow) < dateTimeNow &&
+                                                   fourthQuestionDateTime.AddSeconds(timeWindow) > dateTimeNow;
+
+
+                            if (firstInBound || secondInBound || thirdInBound || fourthInBound)
                             {
                                 testTimeGuid = testtime.Id;
                                 shouldSendMail = true;
@@ -85,8 +87,8 @@ namespace AnkietyUW.Services.Controllers.JobsController
                             string testTimeId = testTimeGuid.ToString();
                             string emailAddress = testUser.EmailAddress;
 
-                            var secret = await UnitOfWork.SecretRepository.CreateSecret(testUser.Id,seriesNumber);
-                         
+                            var secret = await UnitOfWork.SecretRepository.CreateSecret(testUser.Id, seriesNumber);
+
                             var d = new Dictionary<string, string>();
 
                             d.Add("UserId", userGuid);
@@ -95,16 +97,16 @@ namespace AnkietyUW.Services.Controllers.JobsController
                             d.Add("SeriesNumber", seriesNumber.ToString());
                             string token = JwtUtility.Encode(d);
 
-                            var apiKey = "NAME_OF_THE_ENVIRONMENT_VARIABLE_FOR_YOUR_SENDGRID_KEY";
+                            var apiKey = "APIKEYHERE";
                             var client = new SendGridClient(apiKey);
                             var from = new EmailAddress("katarzyna@badanie.emocje.uw", "Katarzyna Wojtkowska");
                             var subject = "Przypomnienie o pomiarze numer " + seriesNumber.ToString();
                             var to = new EmailAddress(emailAddress);
                             var plainTextContent = "localhost:4200/user-answer/" + token;
-                            var htmlContent = "<strong>"+token+"</strong>";
+                            var htmlContent = "<strong>" + token + "</strong>";
                             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
                             var response = await client.SendEmailAsync(msg);
-                            
+
                         }
 
                         test.CompletedSeriesCounter++;
@@ -118,7 +120,7 @@ namespace AnkietyUW.Services.Controllers.JobsController
 
                 }
 
-                
+
 
             }
             catch (Exception e)

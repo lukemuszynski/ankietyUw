@@ -47,6 +47,8 @@ namespace AnkietyUW.Services.Controllers.UserControllers
                 if (testTime.DateTime != DateTime.UtcNow.Date)
                     return BadRequest("Token is outdated");
 
+                answer.TestId = testTime.TestId;
+
                 switch (SeriesNumber % 4)
                 {
                     case 0:
@@ -68,12 +70,8 @@ namespace AnkietyUW.Services.Controllers.UserControllers
                 }
 
                 //najpierw sprawdzić czy jest Secret w bazie, jak nie ma to wypierdolić błąd że już raz usunął
-                var valid = await UnitOfWork.Context.Secrets.SingleOrDefaultAsync(p => p.Id == SecretId);
-                if (valid != null)
-                {
-                    await UnitOfWork.SecretRepository.DeleteSecret(SecretId);
-                }
-                else
+
+                if (!await UnitOfWork.SecretRepository.FindAndDeleteSecret(SecretId))
                 {
                     return BadRequest("Answer already submited");
                 }

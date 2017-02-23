@@ -10,5 +10,6 @@ namespace AnkietyUW.DataLayer.Repository.SecretRepository
     {
         Task<bool> DeleteSecret(Guid secretId);
         Task<Secret> CreateSecret(Guid userId, int seriesNumber);
+        Task<bool> FindAndDeleteSecret(Guid secretId);
     }
 }

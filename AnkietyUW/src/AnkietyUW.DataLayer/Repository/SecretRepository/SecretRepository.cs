@@ -14,10 +14,21 @@ namespace AnkietyUW.DataLayer.Repository.SecretRepository
         {
         }
 
-        public Task<bool> DeleteSecret(Guid secretId)
+        public async Task<bool> FindAndDeleteSecret(Guid secretId)
         {
-            
-            throw new NotImplementedException();
+            var valid = await Context.Secrets.SingleOrDefaultAsync(p => p.Id == secretId);
+            if(valid != null)
+            { Context.Secrets.Remove(valid);
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> DeleteSecret(Guid secretId)
+        {
+
+            Context.Secrets.Remove(new Secret() {Id = secretId});
+            return true;
         }
 
         public async Task<Secret> CreateSecret(Guid userId, int seriesNumber)
