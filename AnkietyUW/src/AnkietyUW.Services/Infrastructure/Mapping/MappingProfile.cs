@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AnkietyUW.Contracts.AnswerDto.DataTransferObjects;
 using AnkietyUW.Contracts.TestDto.DataTransferObjects;
 using AnkietyUW.Contracts.TestDto.ViewModels;
+using AnkietyUW.Contracts.UsersDto;
 using AnkietyUW.DataLayer.Entities;
 using AutoMapper;
 
@@ -42,6 +43,8 @@ namespace AnkietyUW.Services.Infrastructure.Mapping
             CreateMap<Test, AllTestsViewModel>().ReverseMap();
 
             CreateMap<TestTime, TestTimeDto>().ReverseMap();
+
+            CreateMap<User, AddSingleUserDto>().ReverseMap();
             
             CreateMap<UpdateTestDto,Test>().ForMember(dst => dst.Id, opt => opt.MapFrom(src => Guid.Parse(src.Id)));
         }
