@@ -36,8 +36,8 @@ CREATE TABLE [dbo].[TestTimes] (
 
 CREATE TABLE [dbo].[Users] (
     [Id]           UNIQUEIDENTIFIER NOT NULL,
-    [Key]          CHAR (256)       NOT NULL,
-    [EmailAddress] CHAR (256)       NULL,
+    [Key]          nvarchar(20)       NOT NULL,
+    [EmailAddress] nvarchar (256)       NULL,
     [Active]       BIT              NOT NULL,
     [Sex]          INT              NOT NULL,
     [TestId]       UNIQUEIDENTIFIER NOT NULL,

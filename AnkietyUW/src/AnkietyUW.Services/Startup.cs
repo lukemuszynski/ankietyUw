@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AnkietyUW.DataLayer.DbContext;
@@ -24,16 +25,34 @@ namespace AnkietyUW.Services
 {
     public class Startup
     {
+        private string connectionString = "";
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddUserSecrets()
+               
                 .AddEnvironmentVariables();
 
+            if (env.IsDevelopment())
+            {
+                builder.AddUserSecrets();
+            }
+
             Configuration = builder.Build();
+
+            if (env.IsDevelopment())
+            {
+                connectionString = Configuration["connectionString"];
+            }
+            else
+            {
+                connectionString =
+                    "Server=tcp:ankietyuw2017.database.windows.net,1433;Initial Catalog=AnkietyUw123;Persist Security Info=False;User ID=ankietyUwUserNameBoMoge123;Password=hasloDoBazyDanychDlaDoktorantkiZUw!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            }
+
+          
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -42,8 +61,8 @@ namespace AnkietyUW.Services
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            var connection = Configuration["connectionString"];
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
+           // var connection = 
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
             services.AddAutoMapper();
             services.AddScoped<IJwtUtility, JwtUtility>();
             services.AddScoped<IQuestionsProvider, QuestionsProvider>();
@@ -65,9 +84,26 @@ namespace AnkietyUW.Services
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            //app.Use(async (context, next) =>
+            //{
+            //    await next();
+
+            //    if (context.Response.StatusCode == 404
+            //        && !Path.HasExtension(context.Request.Path.Value))
+            //    {
+            //        context.Request.Path = "/index.html";
+            //        await next();
+            //    }
+            //});
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
-            app.UseStatusCodePages();
+           // app.UseStatusCodePages();
             app.UseMvc();
+
+         
         }
     }
 }

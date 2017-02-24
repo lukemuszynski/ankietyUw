@@ -53,6 +53,8 @@ namespace AnkietyUW.DataLayer.Repository.UserRepository
 
             user.EmailAddress = emailAddress;
             user.Active = true;
+            Context.Entry(user).State = EntityState.Modified;
+            
             return user;
         }
     }
