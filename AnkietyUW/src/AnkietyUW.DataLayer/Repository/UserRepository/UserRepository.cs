@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AnkietyUW.DataLayer.DbContext;
 using AnkietyUW.DataLayer.Entities;
+using AnkietyUW.DataLayer.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace AnkietyUW.DataLayer.Repository.UserRepository
@@ -14,9 +14,28 @@ namespace AnkietyUW.DataLayer.Repository.UserRepository
         {
         }
 
-        public Task<User> AddUserToTest(User user, Guid testId)
+        public async Task<User> AddUser(User user)
         {
-            throw new NotImplementedException();
+            user.Id = Guid.NewGuid();
+            user.EmailAddress = null;
+            user.Active = false;
+            Context.Users.Add(user);
+            return user;
+        }
+
+        public async Task<User> AddUserByKey(string key, Guid testId)
+        {
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Key = key.ToUpper(),
+                EmailAddress = null,
+                Active = false,
+                Sex = Sex.Man,
+                TestId = testId
+            };
+            Context.Users.Add(user);
+            return user;
         }
 
         public Task<User> EditUserToTest(User user)

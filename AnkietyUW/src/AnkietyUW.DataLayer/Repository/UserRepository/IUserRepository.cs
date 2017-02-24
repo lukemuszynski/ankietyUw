@@ -8,7 +8,8 @@ namespace AnkietyUW.DataLayer.Repository.UserRepository
 {
     public interface IUserRepository
     {
-        Task<User> AddUserToTest(User user, Guid testId);
+        Task<User> AddUser(User user);
+        Task<User> AddUserByKey(string key, Guid testId);
         Task<User> EditUserToTest(User user);
         Task<ICollection<User>> GetUsersInTest(Guid testId);
         Task<bool> DeactivateUser(Guid userId);
