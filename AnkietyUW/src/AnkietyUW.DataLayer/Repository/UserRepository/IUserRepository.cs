@@ -12,6 +12,7 @@ namespace AnkietyUW.DataLayer.Repository.UserRepository
         Task<User> AddUserByKey(string key, Guid testId);
         Task<User> EditUserToTest(User user);
         Task<ICollection<User>> GetUsersInTest(Guid testId);
+        Task<User> GetUserByGuid(Guid guid);
         Task<bool> DeactivateUser(Guid userId);
         Task<bool> ActivateUser(Guid userId);
         Task<ICollection<User>> DeleteEmailsForUsersInTest();

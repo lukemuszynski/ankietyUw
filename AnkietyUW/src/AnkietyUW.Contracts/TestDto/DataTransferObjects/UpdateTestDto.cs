@@ -9,8 +9,7 @@ namespace AnkietyUW.Contracts.TestDto.DataTransferObjects
     public class UpdateTestDto
     {
         [Required]
-        [StringLength(36, MinimumLength = 36)]
-        public string Id { get; set;  }
+        public Guid Id { get; set;  }
         [Required]
         public int FirstQuestionAddSeconds { get; set; }
         [Required]
