@@ -49,6 +49,13 @@ namespace AnkietyUW.DataLayer.Repository.UserRepository
             throw new NotImplementedException();
         }
 
+        public async Task<User> GetUserByGuid(Guid guid)
+        {
+            //var user = Context.Users.Include(t => t.Test).FirstOrDefault(usr => usr.Id == guid);
+            User user = Context.Users.FirstOrDefault(usr => usr.Id == guid);
+            return user;
+        }
+
         public Task<bool> DeactivateUser(Guid userId)
         {
             throw new NotImplementedException();

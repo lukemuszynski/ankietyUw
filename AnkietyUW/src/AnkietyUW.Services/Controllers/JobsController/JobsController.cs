@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AnkietyUW.Contracts.EmailDto.DataTransferObjects;
+using AnkietyUW.DataLayer.Entities;
 using AnkietyUW.DataLayer.UnitOfWork;
 using AnkietyUW.Services.Infrastructure.BaseControllers;
 using AnkietyUW.Utilities;
@@ -131,5 +133,58 @@ namespace AnkietyUW.Services.Controllers.JobsController
             return Ok();
         }
 
+
+        /// <summary>
+        /// Sending email message to one User specified by Guid
+        /// Example request:
+        /// 
+        /// Method: POST
+        /// Route: http://localhost:53980/Emails/SendSingle/
+        /// Body:
+        /// {
+        ///    "UserGuid": "e657896a-0095-476f-a4bc-5596e8d228cd",
+        ///    "Title": "Hey man! There's a problem",
+        ///    "Content": "Please, consider opening this website: http://somewebsite.org (casual content)",
+        ///    "HtmlContent": "Please, consider opening this website: http://somewebsite.org (html content)"
+        /// }
+        /// Headers: "Content-Type": "application/json"
+        /// </summary>
+        /// <param name="sendEmailDto"></param>
+        /// <returns></returns>
+        [HttpPost("SendSingle")]
+        public async Task<IActionResult> SendSigleEmail([FromBody] SendEmailDto sendEmailDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            try
+            {
+                User user = UnitOfWork.UserRepository.GetUserByGuid(sendEmailDto.UserGuid).Result;
+
+                if (user == null)
+                    return new ObjectResult("Error: Given user does not exit");
+                if (user.EmailAddress == null)
+                    return new ObjectResult("Error: Given user does not have any email adrress");
+
+                var apiKey = "APIKEYHERE";
+                var client = new SendGridClient(apiKey);
+                var from = new EmailAddress("katarzyna@badanie.emocje.uw", "Katarzyna Wojtkowska");
+                var subject = sendEmailDto.Title;
+                var to = new EmailAddress(user.EmailAddress);
+                var plainTextContent = sendEmailDto.Content;
+                var htmlContent = sendEmailDto.HtmlContent;
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                var response = await client.SendEmailAsync(msg);
+                return new ObjectResult("Message sent.\nuserGuid: " + sendEmailDto.UserGuid
+                                            + "\nTitle: " + sendEmailDto.Title
+                                            + "\nContent: " + sendEmailDto.Content
+                                            + "\nContentHtml: " + sendEmailDto.HtmlContent
+                                            + "\nAddress: " + user.EmailAddress);
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e);
+            }
+        }
     }
 }

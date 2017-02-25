@@ -46,7 +46,8 @@ namespace AnkietyUW.Services.Infrastructure.Mapping
 
             CreateMap<User, AddSingleUserDto>().ReverseMap();
             
-            CreateMap<UpdateTestDto,Test>().ForMember(dst => dst.Id, opt => opt.MapFrom(src => Guid.Parse(src.Id)));
+            CreateMap<Test, UpdateTestDto>().ReverseMap();
+         
         }
     }
 }
