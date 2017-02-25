@@ -40,14 +40,16 @@ namespace AnkietyUW.Services.Infrastructure.Mapping
             CreateMap<AnswerDto, Answer>().ForMember(dst => dst.Answers, opt => opt.MapFrom(src => func(src.Answers) )).ForAllOtherMembers(opt => opt.Ignore());
 
             CreateMap<Test, CreateTestDto>().ReverseMap();
-            CreateMap<Test, AllTestsViewModel>().ReverseMap();
+            CreateMap<Test, TestViewModel>().ReverseMap();
 
             CreateMap<TestTime, TestTimeDto>().ReverseMap();
 
             CreateMap<User, AddSingleUserDto>().ReverseMap();
             
             CreateMap<Test, UpdateTestDto>().ReverseMap();
-         
+
+            CreateMap<Test, TestWithTestTimesViewModel>().ReverseMap();
+
         }
     }
 }
