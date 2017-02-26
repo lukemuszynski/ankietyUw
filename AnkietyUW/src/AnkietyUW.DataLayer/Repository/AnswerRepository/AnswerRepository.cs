@@ -19,9 +19,10 @@ namespace AnkietyUW.DataLayer.Repository.AnswerRepository
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<Answer>> GetAnswerForTest(Guid testId)
+        public async Task<ICollection<Answer>> GetAnswerForTest(Guid testId)
         {
-            throw new NotImplementedException();
+            return await Context.Answers.Select(p => p).Where(p => p.TestId == testId).ToListAsync();
+            //throw new NotImplementedException();
         }
 
         public Task<Answer> SaveAnswer(Answer answer)
