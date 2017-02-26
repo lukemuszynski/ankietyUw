@@ -8,6 +8,8 @@ using AnkietyUW.DataLayer.UnitOfWork;
 using AnkietyUW.Services.Infrastructure.BaseControllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace AnkietyUW.Services.Controllers.AdminControllers
 {
@@ -129,5 +131,33 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
                 return new BadRequestObjectResult(e);
             }
         }
+
+        [HttpPost("InviteUsers")]
+        public async Task<IActionResult> InviteUsers([FromBody]InviteUsersToTestDto inviteUsersToTestDto)
+        {
+
+            foreach (var emailAddress in inviteUsersToTestDto.EmailAddressList)
+            {
+
+
+                var apiKey = "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";
+                var client = new SendGridClient(apiKey);
+                var from = new EmailAddress("katarzyna.wojtkowska@badanie.emocje.uw", "Katarzyna Wojtkowska");
+                var subject = "Rejestracja do badania";
+                var to = new EmailAddress(emailAddress);
+                var plainTextContent = "Witam serdecznie, proszę o rejestrację do badania na stronie: http://ankietyuwaspcore.azurewebsites.net/#/user-register/" + emailAddress;
+                var htmlContent = "<p><h4>Witam serdecznie,</h4> Proszę o rejestrację do badania na poniższej stronie: </p> <a href=\"" + "http://ankietyuwaspcore.azurewebsites.net/#/user-register/" + emailAddress + "\">Link do rejestracji</a><h4>Pozdrawiam,</h4><h4>Katarzyna Wojtkowska</h4>";
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                var response = await client.SendEmailAsync(msg);
+
+
+            }
+
+
+            return Ok();
+        }
+
     }
 }
+
+

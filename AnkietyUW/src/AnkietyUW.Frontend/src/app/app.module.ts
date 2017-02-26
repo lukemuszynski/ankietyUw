@@ -12,13 +12,17 @@ import { UserService } from './services/user.service';
 import { AdminService } from './services/admin.service';
 import { ActionCompletedUserComponent } from './action-completed-user/action-completed-user.component';
 import { MdSnackBarModule, MdSnackBar, MdInputModule } from '@angular/material';
+import { AdminTestListComponent } from './admin-test-list/admin-test-list.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 @NgModule({
   declarations: [
     AppComponent,
     UserAnswerComponent,
     QuestionsUserComponent,
     RegisterUserComponent,
-    ActionCompletedUserComponent
+    ActionCompletedUserComponent,
+    AdminTestListComponent,
+    AdminLoginComponent
   ],
   imports: [
     BrowserModule,

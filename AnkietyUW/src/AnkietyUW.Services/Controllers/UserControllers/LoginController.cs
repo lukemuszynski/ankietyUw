@@ -20,15 +20,19 @@ namespace AnkietyUW.Services.Controllers.UserControllers
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterUser([FromBody]RegisterDto registerDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return Ok(2);
+            }
             try
             {
                 var user = await UnitOfWork.UserRepository.AddEmailToUserWithKey(registerDto.Key, registerDto.Email);
 
                 if (user == null)
-                    return new UnauthorizedResult();
+                    return Ok(2);
 
                 await UnitOfWork.SaveChangesAsync();
-                return Ok();
+                return Ok(1);
             }
             catch (Exception e)
             {

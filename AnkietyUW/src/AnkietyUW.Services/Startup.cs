@@ -48,8 +48,7 @@ namespace AnkietyUW.Services
             }
             else
             {
-                connectionString =
-                    "Server=tcp:ankietyuw2017.database.windows.net,1433;Initial Catalog=AnkietyUw123;Persist Security Info=False;User ID=ankietyUwUserNameBoMoge123;Password=hasloDoBazyDanychDlaDoktorantkiZUw!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                connectionString = "";
             }
 
           
@@ -85,6 +84,10 @@ namespace AnkietyUW.Services
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             //app.Use(async (context, next) =>
             //{
             //    await next();
@@ -96,8 +99,7 @@ namespace AnkietyUW.Services
             //        await next();
             //    }
             //});
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
+
 
             app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
            // app.UseStatusCodePages();

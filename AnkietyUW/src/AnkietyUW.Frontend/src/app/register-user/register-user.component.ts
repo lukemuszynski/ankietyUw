@@ -51,6 +51,7 @@ export class RegisterUserComponent implements OnInit {
    
 
     this.userService.registerUser(this.key, this.email).subscribe(res => {
+      console.log(res);
       if (res === 1)
         this.router.navigate(["user-action-completed"]);
       else {

@@ -21,7 +21,7 @@ export class UserService {
     );
   }
 
-  registerUser(key: string, email: string): Observable<number> {
+  registerUser(key: string, email: string): Observable<any> {
     let headers = new Headers({ 'Accept': 'application/json' });
     headers.append('Content-Type','application/json');
     let options = new RequestOptions({ headers: headers });
