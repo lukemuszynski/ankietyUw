@@ -24,6 +24,8 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
 
         public async Task<Test> UpdateTest(Test test)
         {
+
+
             Context.Tests.Update(test);
             return test;
         }
@@ -53,7 +55,7 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
         public async Task<Test> GetTestByTestTimeId(Guid id)
         {
 
-            var test = await Context.TestTimes.Include(tt => tt.Test).FirstOrDefaultAsync(tt => tt.Id == id);
+            var test = await Context.TestTimes.Include(t => t.Test).FirstOrDefaultAsync(tt => tt.Id == id);
 
             return test.Test;
 

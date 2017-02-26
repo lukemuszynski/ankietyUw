@@ -38,7 +38,7 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
 
                 await UnitOfWork.SaveChangesAsync();
 
-                var testViewModel = Mapper.Map<Test, AllTestsViewModel>(test);
+                var testViewModel = Mapper.Map<Test, TestViewModel>(test);
 
                 return new OkObjectResult(testViewModel);
             }
@@ -59,7 +59,7 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
             try
             {
                 var list = await UnitOfWork.TestRepository.GetAllTests();
-                var vmList = Mapper.Map<ICollection<Test>, ICollection<AllTestsViewModel>>(list);
+                var vmList = Mapper.Map<ICollection<Test>, ICollection<TestViewModel>>(list);
                 return new OkObjectResult(vmList);
             }
             catch (Exception e)
@@ -75,9 +75,9 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
             {
                 var test = await UnitOfWork.TestRepository.GetSingleTest(Guid.Parse(id));
 
-                var testViewModel = Mapper.Map<Test, AllTestsViewModel>(test);
+                var testWithTestTimesViewModel = Mapper.Map<Test, TestWithTestTimesViewModel>(test);
 
-                return new OkObjectResult(testViewModel);
+                return new OkObjectResult(testWithTestTimesViewModel);
             }
             catch (Exception e)
             {
@@ -100,7 +100,7 @@ namespace AnkietyUW.Services.Controllers.AdminControllers
 
                 await UnitOfWork.SaveChangesAsync();
                 
-                var testViewModel = Mapper.Map<Test, AllTestsViewModel>(test);
+                var testViewModel = Mapper.Map<Test, TestViewModel>(test);
 
                 return new OkObjectResult(testViewModel);
             }

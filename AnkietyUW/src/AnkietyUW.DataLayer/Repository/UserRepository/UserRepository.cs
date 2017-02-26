@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AnkietyUW.DataLayer.DbContext;
 using AnkietyUW.DataLayer.Entities;
@@ -46,6 +47,13 @@ namespace AnkietyUW.DataLayer.Repository.UserRepository
         public Task<ICollection<User>> GetUsersInTest(Guid testId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<User> GetUserByGuid(Guid guid)
+        {
+            //var user = Context.Users.Include(t => t.Test).FirstOrDefault(usr => usr.Id == guid);
+            User user = Context.Users.FirstOrDefault(usr => usr.Id == guid);
+            return user;
         }
 
         public Task<bool> DeactivateUser(Guid userId)
