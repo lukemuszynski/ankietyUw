@@ -9,6 +9,8 @@ namespace AnkietyUW.Contracts.TestDto.DataTransferObjects
     public class CreateTestDto
     {
         [Required]
+        public string Name { get; set; }
+        [Required]
         public int FirstQuestionAddSeconds { get; set; }
         [Required]
         public int SecondQuestionAddSeconds { get; set; }
