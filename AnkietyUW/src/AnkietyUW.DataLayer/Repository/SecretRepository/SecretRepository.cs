@@ -40,5 +40,10 @@ namespace AnkietyUW.DataLayer.Repository.SecretRepository
             Context.Secrets.Add(secret);
             return secret;
         }
+
+        public async Task<Secret> FindSecret(Guid userId, int seriesNumber)
+        {
+            return await Context.Secrets.FirstOrDefaultAsync(x => x.UserId == userId && x.SeriesNumber == seriesNumber);
+        }
     }
 }

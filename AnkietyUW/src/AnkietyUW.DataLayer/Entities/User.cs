@@ -23,6 +23,9 @@ namespace AnkietyUW.DataLayer.Entities
         [ForeignKey("Test")]
         public Guid TestId { get; set; }
         public Test Test { get; set; }
+
+        public int PostedAnswersNumber { get; set; }
+
     }
 
   

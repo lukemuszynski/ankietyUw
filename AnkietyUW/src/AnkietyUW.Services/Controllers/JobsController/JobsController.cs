@@ -104,8 +104,8 @@ namespace AnkietyUW.Services.Controllers.JobsController
                             var from = new EmailAddress("katarzyna@badanie.emocje.uw", "Katarzyna Wojtkowska");
                             var subject = "Przypomnienie o pomiarze numer " + seriesNumber.ToString();
                             var to = new EmailAddress(emailAddress);
-                            var plainTextContent = "localhost:4200/user-answer/" + token;
-                            var htmlContent = "<strong>" + token + "</strong>";
+                            var plainTextContent = "http://ankietyuwaspcore.azurewebsites.net/#/user-answer/" + token;
+                            var htmlContent = $"<p>Cieszę się, że zdecydował się Pan/i na udział w badaniu elektronicznym ☺</p> <p>Badanie będzie trwać 3 tygodnie i będzie wysyłane poprzez link 4 razy dziennie o stałych porach na Pana/Pani maila.</p><p>Jeśli nie wypełni Pan/Pani maila, to przypomnienie zostanie wysłane po 20 minutach. Po 30 minutach link wygasa i może Pan/Pani kontynuować badanie dopiero od kolejnego pomiaru.</p><p>Wypełnienie badania będzie trwać ok 1 minuty.</p><p>Proszę się starać odpowiadać  na wszystkie pytania.</p><p>Link do badania: {plainTextContent} </p><p>Pozdrawiam,</p><p>mgr Katarzyna Wojtkowska</p><p>katarzyna.wojtkowska@psych.uw.edu.pl</p>";
                             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
                             var response = await client.SendEmailAsync(msg);
 
@@ -133,6 +133,113 @@ namespace AnkietyUW.Services.Controllers.JobsController
             return Ok();
         }
 
+
+        [HttpPost("SendReminder")]
+        public async Task<IActionResult> SendRemiderForAllTests()
+        {
+
+            try
+            {
+                int timeWindow = 120;
+                int delay = 1200;
+                var tests = await UnitOfWork.TestRepository.GetAllNotCompletedTestsWithTestTimesAndUsers();
+                var dateTimeNow = DateTime.UtcNow;
+
+                foreach (var test in tests)
+                {
+                    bool shouldSendMail = false;
+                    Guid testTimeGuid;
+                    foreach (var testtime in test.TestTimes)
+                    {
+
+                        if (testtime.DateTime == DateTime.UtcNow.Date)
+                        {
+
+
+                            var firstQuestionDateTime = testtime.DateTime.AddSeconds(test.FirstQuestionAddSeconds + delay);
+                            var secondQuestionDateTime = testtime.DateTime.AddSeconds(test.SecondQuestionAddSeconds + delay);
+                            var thirdQuestionDateTime = testtime.DateTime.AddSeconds(test.ThirdQuestionAddSeconds + delay);
+                            var fourthQuestionDateTime = testtime.DateTime.AddSeconds(test.FourthQuestionAddSeconds + delay);
+
+
+                            bool firstInBound = firstQuestionDateTime.AddSeconds(-timeWindow) < dateTimeNow &&
+                                                firstQuestionDateTime.AddSeconds(timeWindow) > dateTimeNow;
+
+                            bool secondInBound = secondQuestionDateTime.AddSeconds(-timeWindow) < dateTimeNow &&
+                                          secondQuestionDateTime.AddSeconds(timeWindow) > dateTimeNow;
+
+                            bool thirdInBound = thirdQuestionDateTime.AddSeconds(-timeWindow) < dateTimeNow &&
+                                        thirdQuestionDateTime.AddSeconds(timeWindow) > dateTimeNow;
+
+                            bool fourthInBound = fourthQuestionDateTime.AddSeconds(-timeWindow) < dateTimeNow &&
+                                                   fourthQuestionDateTime.AddSeconds(timeWindow) > dateTimeNow;
+
+
+                            if (firstInBound || secondInBound || thirdInBound || fourthInBound)
+                            {
+                                testTimeGuid = testtime.Id;
+                                shouldSendMail = true;
+                                break;
+                            }
+                        }
+
+                    }
+
+                    if (shouldSendMail)
+                    {
+
+                        foreach (var testUser in test.Users)
+                        {
+
+                            if (!testUser.Active)
+                                continue;
+
+                            int seriesNumber = (test.CompletedSeriesCounter - 1);
+                            string userGuid = testUser.Id.ToString();
+                            string testTimeId = testTimeGuid.ToString();
+                            string emailAddress = testUser.EmailAddress;
+
+
+                            var secret = await UnitOfWork.SecretRepository.FindSecret(testUser.Id, seriesNumber);
+                            if(secret == null)
+                                continue;
+
+                            var d = new Dictionary<string, string>();
+
+                            d.Add("UserId", userGuid);
+                            d.Add("SecretId", secret.Id.ToString());
+                            d.Add("TestTimeId", testTimeId);
+                            d.Add("SeriesNumber", seriesNumber.ToString());
+                            string token = JwtUtility.Encode(d);
+
+                            var apiKey = "APIKEYHERE";
+                            var client = new SendGridClient(apiKey);
+                            var from = new EmailAddress("katarzyna@badanie.emocje.uw", "Katarzyna Wojtkowska");
+                            var subject = "Przypomnienie o pomiarze numer " + seriesNumber.ToString();
+                            var to = new EmailAddress(emailAddress);
+                            var plainTextContent = "http://ankietyuwaspcore.azurewebsites.net/#/user-answer/" + token;
+                            var htmlContent = $"<p>Cieszę się, że zdecydował się Pan/i na udział w badaniu elektronicznym</p> <p>Badanie będzie trwać 3 tygodnie i będzie wysyłane poprzez link 4 razy dziennie o stałych porach na Pana/Pani maila.</p><p>Jeśli nie wypełni Pan/Pani maila, to przypomnienie zostanie wysłane po 20 minutach. Po 30 minutach link wygasa i może Pan/Pani kontynuować badanie dopiero od kolejnego pomiaru.</p><p>Wypełnienie badania będzie trwać ok 1 minuty.</p><p>Proszę się starać odpowiadać  na wszystkie pytania.</p><p>Link do badania: {plainTextContent} </p><p>Pozdrawiam,</p><p>mgr Katarzyna Wojtkowska</p><p>katarzyna.wojtkowska@psych.uw.edu.pl</p>";
+                            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                            var response = await client.SendEmailAsync(msg);
+
+                        }
+
+
+                    }
+
+
+                }
+
+
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+
+            return Ok();
+        }
 
         /// <summary>
         /// Sending email message to one User specified by Guid

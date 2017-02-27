@@ -25,8 +25,8 @@ namespace AnkietyUW.DataLayer.Repository.TestRepository
         public async Task<Test> UpdateTest(Test test)
         {
 
-
             Context.Tests.Update(test);
+            
             return test;
         }
 
