@@ -30,7 +30,7 @@ export class UserService {
     return this.http.post(environment.serviceUrl + "Register", JSON.stringify({ "key": key, "email": email }),options).map(res => res.json());
   }
 
-  postAnswers(data: any, token: string): Observable<number> {
+  postAnswers(data: any, token: string): Observable<any> {
     
     let headers = new Headers({ 'Accept': 'application/json' });
     headers.append('Content-Type','application/json');

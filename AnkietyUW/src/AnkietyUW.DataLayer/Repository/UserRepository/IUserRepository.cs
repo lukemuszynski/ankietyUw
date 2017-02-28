@@ -17,5 +17,6 @@ namespace AnkietyUW.DataLayer.Repository.UserRepository
         Task<bool> ActivateUser(Guid userId);
         Task<ICollection<User>> DeleteEmailsForUsersInTest();
         Task<User> AddEmailToUserWithKey(string key, string emailAddress);
+        Task<User> UpdatePostedAnswersNumber(Guid id, int postedAnswersNumber);
     }
 }

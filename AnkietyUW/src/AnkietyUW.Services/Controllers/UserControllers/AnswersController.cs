@@ -44,6 +44,9 @@ namespace AnkietyUW.Services.Controllers.UserControllers
 
                 var testTime = await UnitOfWork.TestRepository.GetTestTimeWithTestByTestTimeId(TestTimeId);
 
+                if(testTime == null)
+                    return BadRequest("Token is outdated");
+
                 if (testTime.DateTime != DateTime.UtcNow.Date)
                     return BadRequest("Token is outdated");
 
@@ -75,7 +78,7 @@ namespace AnkietyUW.Services.Controllers.UserControllers
                 {
                     return BadRequest("Answer already submited");
                 }
-
+                await UnitOfWork.UserRepository.UpdatePostedAnswersNumber(UserId, SeriesNumber);
                 await UnitOfWork.AnswerRepository.SaveAnswer(answer);
                 await UnitOfWork.SaveChangesAsync();
             }

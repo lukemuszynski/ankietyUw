@@ -33,7 +33,8 @@ namespace AnkietyUW.DataLayer.Repository.UserRepository
                 EmailAddress = null,
                 Active = false,
                 Sex = Sex.Man,
-                TestId = testId
+                TestId = testId,
+                PostedAnswersNumber = -1
             };
             Context.Users.Add(user);
             return user;
@@ -85,6 +86,14 @@ namespace AnkietyUW.DataLayer.Repository.UserRepository
             user.Active = true;
             Context.Entry(user).State = EntityState.Modified;
             
+            return user;
+        }
+
+        public async Task<User> UpdatePostedAnswersNumber(Guid id,int postedAnswersNumber)
+        {
+            var user = await Context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            user.PostedAnswersNumber = postedAnswersNumber;
+            Context.Entry(user).State = EntityState.Modified;
             return user;
         }
     }

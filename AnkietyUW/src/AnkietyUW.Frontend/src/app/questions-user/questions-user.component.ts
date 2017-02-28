@@ -25,7 +25,7 @@ export class QuestionsUserComponent implements OnInit {
     this.chosenAnswer = [];
 
     for (let i = 0; i < 15; i++)
-      this.chosenAnswer.push(1);
+      this.chosenAnswer.push(-15);
 
     this.answersWithLablesEmocje = [];
     this.answersWithLablesEmocje.push({ val: 1, label: "Zdecydowanie nie" });
@@ -88,6 +88,7 @@ export class QuestionsUserComponent implements OnInit {
 
     console.info(answerDto);
     this.userService.postAnswers(answerDto, this.token).subscribe(res => {
+        this.router.navigate(["user-action-completed"]);
     });
 
   }

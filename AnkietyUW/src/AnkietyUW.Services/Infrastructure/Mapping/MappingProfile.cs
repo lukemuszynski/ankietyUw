@@ -22,8 +22,12 @@ namespace AnkietyUW.Services.Infrastructure.Mapping
             {
                 var l = new List<int?>();
                 x.ForEach(e =>
-                {      
-                    if (e < 0)
+                {
+                    if (e == -15)
+                    {
+                        l.Add(-15);
+                    }   
+                    else if (e < 0)
                     {
                         l.Add(null);
                     }

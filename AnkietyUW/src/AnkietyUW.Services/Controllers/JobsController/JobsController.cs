@@ -99,7 +99,7 @@ namespace AnkietyUW.Services.Controllers.JobsController
                             d.Add("SeriesNumber", seriesNumber.ToString());
                             string token = JwtUtility.Encode(d);
 
-                            var apiKey = "APIKEYHERE";
+                            var apiKey = "APIKEY";
                             var client = new SendGridClient(apiKey);
                             var from = new EmailAddress("katarzyna@badanie.emocje.uw", "Katarzyna Wojtkowska");
                             var subject = "Przypomnienie o pomiarze numer " + seriesNumber.ToString();
@@ -212,7 +212,7 @@ namespace AnkietyUW.Services.Controllers.JobsController
                             d.Add("SeriesNumber", seriesNumber.ToString());
                             string token = JwtUtility.Encode(d);
 
-                            var apiKey = "APIKEYHERE";
+                            var apiKey = "APIKEY";
                             var client = new SendGridClient(apiKey);
                             var from = new EmailAddress("katarzyna@badanie.emocje.uw", "Katarzyna Wojtkowska");
                             var subject = "Przypomnienie o pomiarze numer " + seriesNumber.ToString();
@@ -237,7 +237,6 @@ namespace AnkietyUW.Services.Controllers.JobsController
             {
                 return BadRequest(e);
             }
-
             return Ok();
         }
 
@@ -273,7 +272,7 @@ namespace AnkietyUW.Services.Controllers.JobsController
                 if (user.EmailAddress == null)
                     return new ObjectResult("Error: Given user does not have any email adrress");
 
-                var apiKey = "APIKEYHERE";
+                var apiKey = "APKIKEY";
                 var client = new SendGridClient(apiKey);
                 var from = new EmailAddress("katarzyna@badanie.emocje.uw", "Katarzyna Wojtkowska");
                 var subject = sendEmailDto.Title;
